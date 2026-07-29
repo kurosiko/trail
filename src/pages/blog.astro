@@ -1,0 +1,17 @@
+---
+import Layout from "../layouts/Layout.astro";
+import BlogPage from "../components/BlogPage";
+
+const posts = [
+	{
+		title: "The Trail",
+		href: "/posts/init",
+		publishedAt: "2026-07-27",
+		publishedLabel: "2026.07.27",
+	},
+];
+---
+
+<Layout title="Blog | Trail" description="Trailの記事一覧">
+	<BlogPage posts={posts} />
+</Layout>
