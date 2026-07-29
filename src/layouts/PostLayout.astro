@@ -1,0 +1,37 @@
+---
+import PostMeta from "../components/PostMeta";
+import Layout from "./Layout.astro";
+
+interface Frontmatter {
+	title: string;
+	pubDate: Date | string;
+	description: string;
+	author: string;
+	tags: string[];
+}
+
+interface Props {
+	frontmatter: Frontmatter;
+}
+
+const { frontmatter } = Astro.props;
+const publishedAt = new Date(frontmatter.pubDate).toISOString().slice(0, 10);
+const publishedLabel = publishedAt.replaceAll("-", ".");
+---
+
+<Layout
+	title={`${frontmatter.title} | Trail`}
+	description={frontmatter.description}
+>
+	<article>
+		<PostMeta
+			publishedAt={publishedAt}
+			publishedLabel={publishedLabel}
+			author={frontmatter.author}
+			tags={frontmatter.tags}
+		/>
+		<div class="post-content">
+			<slot />
+		</div>
+	</article>
+</Layout>
