@@ -1,0 +1,34 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import PostMeta from "../components/PostMeta.astro";
+import { getPostDate } from "../utils/post-date";
+import Layout from "./Layout.astro";
+
+interface Props {
+	post: CollectionEntry<"posts">;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, author, tags } = post.data;
+const published = getPostDate(pubDate);
+---
+
+<Layout
+	title={`${title} | Trail`}
+	description={description}
+>
+	<a href="/posts">Back</a>
+	<article>
+		<PostMeta
+			title={title}
+			publishedAt={published.datetime}
+			publishedLabel={published.label}
+			author={author}
+			tags={tags}
+		/>
+		<div class="post-content">
+			<slot />
+		</div>
+	</article>
+</Layout>

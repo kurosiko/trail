@@ -1,0 +1,24 @@
+---
+interface Props {
+	title: string;
+	publishedAt: string;
+	publishedLabel: string;
+	author: string;
+	tags: string[];
+}
+
+const { title, publishedAt, publishedLabel, author, tags } = Astro.props;
+---
+
+<header class="post-header">
+	<p class="eyebrow">Blog</p>
+	<h1>{title}</h1>
+	<p>
+		<time datetime={publishedAt}>{publishedLabel}</time>
+		{" · "}
+		<span>{author}</span>
+	</p>
+	<ul class="tag-list" aria-label="タグ">
+		{tags.map((tag) => <li>{tag}</li>)}
+	</ul>
+</header>

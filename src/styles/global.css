@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+:root {
+	color: #fff;
+	background: #071533;
+	font-family:
+		Inter, "Noto Sans JP", system-ui, -apple-system, BlinkMacSystemFont,
+		"Segoe UI", sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	line-height: 1.7;
+}
+
+a {
+	color: inherit;
+	text-underline-offset: 0.25em;
+}
+
+header,
+main,
+footer {
+	width: min(100% - 2rem, 68rem);
+	margin-inline: auto;
+}
+
+header {
+	padding-block: 1.25rem;
+	border-bottom: 1px solid #dfe3db;
+}
+
+nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 2rem;
+}
+
+@theme{
+    
+}
+
+.site-title {
+	font-size: 1.25rem;
+	font-weight: 750;
+	letter-spacing: -0.02em;
+	text-decoration: none;
+}
+
+.nav-links {
+	display: flex;
+	gap: 1.25rem;
+}
+
+.nav-links a {
+	text-decoration: none;
+}
+
+main {
+	min-height: calc(100vh - 10rem);
+	padding-block: clamp(3rem, 10vw, 8rem);
+}
+
+.hero {
+	max-width: 48rem;
+}
+
+.eyebrow {
+	margin: 0 0 0.75rem;
+	color: #56704b;
+	font-size: 0.8rem;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+
+h1 {
+	margin: 0 0 1.25rem;
+	font-size: clamp(2.25rem, 7vw, 5rem);
+	line-height: 1.08;
+	letter-spacing: -0.05em;
+	text-wrap: balance;
+}
+
+p {
+	max-width: 42rem;
+}
+
+.actions {
+	display: flex;
+	align-items: center;
+	gap: 1.25rem;
+	margin-top: 2rem;
+}
+
+.button {
+	display: inline-block;
+	padding: 0.7rem 1.1rem;
+	border-radius: 999px;
+	color: white;
+	background: #344d2b;
+	text-decoration: none;
+}
+
+.post-list {
+	margin: 2rem 0 0;
+	padding: 0;
+	list-style: none;
+	border-top: 1px solid #dfe3db;
+}
+
+.post-list a {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	padding-block: 1rem;
+	border-bottom: 1px solid #dfe3db;
+	text-decoration: none;
+}
+
+.post-list time {
+	color: #667085;
+}
+
+.tag-list {
+	display: flex;
+	gap: 0.5rem;
+	margin: 1rem 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.tag-list li {
+	padding: 0.2rem 0.65rem;
+	border: 1px solid #dfe3db;
+	border-radius: 999px;
+	color: #667085;
+	font-size: 0.8rem;
+}
+
+.post-header {
+	width: auto;
+	margin: 0 0 1.5rem;
+	padding: 0;
+	border: 0;
+}
+
+.post-header p {
+	margin-block: 0;
+}
+
+footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding-block: 1.5rem;
+	border-top: 1px solid #dfe3db;
+	color: #667085;
+}
