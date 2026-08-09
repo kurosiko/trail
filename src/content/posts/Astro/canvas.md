@@ -6,7 +6,7 @@ author: "kurosiko"
 image:
   url: "https://docs.astro.build/assets/rose.webp"
   alt: "ピンク色に輝く暗い背景に浮かぶAstroのロゴ。"
-tags: ["trail", "web", "frontend"]
+tags: ["canvas", "preact", "animation", "frontend"]
 ---
 
 ```tsx
