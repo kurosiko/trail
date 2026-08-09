@@ -1,28 +1,35 @@
 ---
-import type { CollectionEntry } from "astro:content";
-import { getCollection } from "astro:content";
-
 import Layout from "../layouts/Layout.astro";
 import { getPostDate } from "../utils/post-date";
+import { getPosts, getTopics } from "../utils/post-query";
 
-type Post = CollectionEntry<"posts">;
-
-const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const requestedTopic = Astro.url.searchParams.get("topic") ?? "";
+const allPosts = await getPosts();
+const topics = getTopics(allPosts);
+const selectedTopic = topics.includes(requestedTopic) ? requestedTopic : "";
+const posts = selectedTopic ? await getPosts(selectedTopic) : allPosts;
 ---
 
 <Layout title="Blog | Trail" description="Trailの記事一覧">
 	<section>
 		<p class="eyebrow">Blog</p>
 		<h1>Posts</h1>
+		<form method="get" action="/posts" class="mt-6 flex items-center gap-3">
+			<label for="topic" class="font-semibold">TOPIC</label>
+			<select name="topic" id="topic" onchange="this.form.submit()">
+				<option value="" selected={selectedTopic === ""}>すべて</option>
+				{topics.map((topic) => (
+					<option value={topic} selected={selectedTopic === topic}>{topic}</option>
+				))}
+			</select>
+		</form>
 		<ul class="mt-8 list-none border-t border-[#dfe3db] p-0">
 			{
-				posts.map((post: Post) => {
+				posts.map((post) => {
 					const published = getPostDate(post.data.pubDate);
 
 					return (
-						<li>
+						<li data-topics={post.data.tags.join(",")}>
 							<a
 								href={`/posts/${post.id}`}
 								class="flex justify-between gap-4 border-b border-[#dfe3db] py-4 no-underline"
@@ -31,12 +38,37 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
 									<strong class="block">{post.data.title}</strong>
 									<small class="mt-1 block font-normal text-[#a9b4c9]">{post.data.description}</small>
 								</span>
-								<time class="text-[#667085]" datetime={published.datetime}>{published.label}</time>
+								<div class="text-[#667085] text-right">
+									<time datetime={published.datetime}>{published.label}</time>
+									<br />
+									<small>{post.id}</small>
+								</div>
 							</a>
 						</li>
 					);
 				})
 			}
 		</ul>
+		{posts.length === 0 && <p class="mt-8">該当する投稿はありません。</p>}
 	</section>
 </Layout>
+
+<script>
+	const applyTopicFilter = () => {
+		const select = document.querySelector<HTMLSelectElement>("#topic");
+		if (!select) return;
+
+		const requestedTopic = new URL(window.location.href).searchParams.get("topic") ?? "";
+		const isKnownTopic = [...select.options].some((option) => option.value === requestedTopic);
+		const selectedTopic = isKnownTopic ? requestedTopic : "";
+		select.value = selectedTopic;
+
+		for (const post of document.querySelectorAll<HTMLElement>("[data-topics]")) {
+			const topics = (post.dataset.topics ?? "").split(",");
+			post.hidden = Boolean(selectedTopic) && !topics.includes(selectedTopic);
+		}
+	};
+
+	document.addEventListener("astro:page-load", applyTopicFilter);
+	applyTopicFilter();
+</script>
