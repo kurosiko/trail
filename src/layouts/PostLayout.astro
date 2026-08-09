@@ -10,13 +10,18 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { title, description, pubDate, author, tags } = post.data;
+const { title, description, pubDate, author, tags, image } = post.data;
 const published = getPostDate(pubDate);
 ---
 
 <Layout
 	title={`${title} | Trail`}
 	description={description}
+	type="article"
+	author={author}
+	publishedAt={pubDate}
+	tags={tags}
+	image={image}
 >
 	<a href="/posts">Back</a>
 	<article>

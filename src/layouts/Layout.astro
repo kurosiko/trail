@@ -3,17 +3,31 @@ import "../styles/global.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Starfield from "../components/Starfield";
-
+import { ClientRouter } from "astro:transitions";
 interface Props {
 	title: string;
 	description?: string;
+	type?: "website" | "article";
+	image?: {
+		url: string;
+		alt: string;
+	};
+	author?: string;
+	publishedAt?: Date;
+	tags?: string[];
 }
 
 const {
 	title,
 	description = "Trail",
+	type = "website",
+	image,
+	author,
+	publishedAt,
+	tags = [],
 } = Astro.props;
 const now = new Date();
+const publishedDatetime = publishedAt?.toISOString();
 ---
 
 <!doctype html>
@@ -25,12 +39,26 @@ const now = new Date();
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
+		{author && <meta name="author" content={author} />}
+		<meta property="og:type" content={type} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:site_name" content="Trail" />
+		{image && <meta property="og:image" content={image.url} />}
+		{image && <meta property="og:image:alt" content={image.alt} />}
+		<meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
+		{type === "article" && publishedDatetime && (
+			<meta property="article:published_time" content={publishedDatetime} />
+		)}
+		{type === "article" && author && <meta property="article:author" content={author} />}
+		{type === "article" && tags.map((tag) => <meta property="article:tag" content={tag} />)}
 		<title>{title}</title>
+		<ClientRouter />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<Starfield client:only="preact"/>
+			<Starfield client:only="preact" transition:persist/>
 			<slot />
 		</main>
 		<Footer

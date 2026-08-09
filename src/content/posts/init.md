@@ -8,3 +8,4 @@ image:
   alt: "ピンク色に輝く暗い背景に浮かぶAstroのロゴ。"
 tags: ["info", "other"]
 ---
+# The Trail Project

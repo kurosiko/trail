@@ -15,20 +15,23 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
 <Layout title="Blog | Trail" description="Trailの記事一覧">
 	<section>
 		<p class="eyebrow">Blog</p>
-		<h1>Articles</h1>
-		<ul class="post-list">
+		<h1>Posts</h1>
+		<ul class="mt-8 list-none border-t border-[#dfe3db] p-0">
 			{
 				posts.map((post: Post) => {
 					const published = getPostDate(post.data.pubDate);
 
 					return (
 						<li>
-							<a href={`/posts/${post.id}`}>
+							<a
+								href={`/posts/${post.id}`}
+								class="flex justify-between gap-4 border-b border-[#dfe3db] py-4 no-underline"
+							>
 								<span>
-									<strong>{post.data.title}</strong>
-									<small>{post.data.description}</small>
+									<strong class="block">{post.data.title}</strong>
+									<small class="mt-1 block font-normal text-[#a9b4c9]">{post.data.description}</small>
 								</span>
-								<time datetime={published.datetime}>{published.label}</time>
+								<time class="text-[#667085]" datetime={published.datetime}>{published.label}</time>
 							</a>
 						</li>
 					);
@@ -37,16 +40,3 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
 		</ul>
 	</section>
 </Layout>
-
-<style>
-	.post-list strong,
-	.post-list small {
-		display: block;
-	}
-
-	.post-list small {
-		margin-top: 0.25rem;
-		color: #a9b4c9;
-		font-weight: 400;
-	}
-</style>
