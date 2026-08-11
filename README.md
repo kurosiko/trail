@@ -8,16 +8,32 @@ bun create astro@latest -- --template minimal
 
 ## Visitor counter
 
-The site includes a server-side unique visitor counter at `/api/visitors`. Set
-`VISITOR_COUNTER_SECRET` to a long random value in production. The standalone
-Node server stores the counter in `.data/visitors.json`; set
-`VISITOR_COUNTER_FILE` if the deployment needs a different writable location.
+The Astro site remains a static build. `/api/visitors` is implemented separately
+as a Cloudflare Pages Function in `functions/api/visitors.ts`, backed by D1.
+Missing D1 or secret bindings never interrupt `astro build`; the counter returns
+an unavailable response until its runtime bindings are configured.
 
-The counter uses a signed HttpOnly cookie and a short-lived HMAC of the client
-address and user agent as a fallback when a cookie is removed. It also applies
-same-origin checks and rate limiting. Anonymous visitor counts cannot identify
-a human with absolute certainty, so users who change both their browser
-identity and network can still be counted again.
+To configure Cloudflare Pages:
+
+1. Create a D1 database and apply `migrations/0001_visitor_counter.sql`.
+2. Add the database to the Pages project as a D1 binding named `VISITOR_DB`.
+3. Add an encrypted secret named `VISITOR_COUNTER_SECRET` with at least 32
+   random characters.
+4. Use `bun run build` as the build command and `dist` as the build directory.
+
+For local Pages Functions development, copy `.dev.vars.example` to `.dev.vars`,
+build the site, and run Wrangler with the D1 binding:
+
+```sh
+bun run build
+bunx wrangler pages dev dist --d1 VISITOR_DB=<database-id>
+```
+
+The counter uses a signed HttpOnly cookie, a keyed hash of Cloudflare's client
+IP header plus browser signals, D1 uniqueness constraints, same-origin checks,
+and a D1-backed rate limit. No raw IP address is stored. Anonymous visitor
+counts still cannot identify a person with absolute certainty: changing both
+browser identity and network can result in another count.
 
 ## 🚀 Project Structure
 
