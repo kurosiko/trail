@@ -8,12 +8,11 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "build:functions": "wrangler pages functions build functions --outdir .wrangler/functions --build-output-directory dist",
-    "check": "astro check && tsc --noEmit -p functions/tsconfig.json",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/node": "^11.1.0",
     "@astrojs/preact": "^6.0.2",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.2.0",
@@ -24,9 +23,8 @@
     "@astrojs/check": "^0.9.10",
     "@astrojs/language-server": "^2.16.13",
     "@babel/core": "7.28.5",
-    "@cloudflare/workers-types": "^5.20260811.1",
-    "typescript": "^5.9.3",
-    "wrangler": "^4.120.1"
+    "@types/node": "^26.2.0",
+    "typescript": "^5.9.3"
   },
   "overrides": {
     "@babel/code-frame": "7.28.6",
