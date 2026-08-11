@@ -1,9 +1,33 @@
-
 ---
+import type { AstroInstance } from "astro";
+
 import Layout from "../layouts/Layout.astro";
-import AboutPage from "../components/AboutPage";
+
+const demoPages = Object.values(import.meta.glob<AstroInstance>("./demo/**/*.astro", { eager: true }))
+    //make sure type of demo is AstroInstance & demo.url is string
+	.filter((demo): demo is AstroInstance & { url: string } => Boolean(demo.url))
+	.map(({ url }) => ({
+		href: url,
+		label: url.replace(/^\/demo\//, "").replace(/\/$/, "").replaceAll("/", " / "),
+	}))
+	.sort((a, b) => a.href.localeCompare(b.href));
 ---
 
 <Layout title="Demo" description="Demo Previewer">
-	<AboutPage />
+	<section>
+		<p class="eyebrow">Demo</p>
+		<h1>Demo</h1>
+		<ul class="mt-8 list-none border-t border-[#dfe3db] p-0">
+			{demoPages.map(({ href, label }) => (
+				<li>
+					<a
+						href={href}
+						class="block border-b border-[#dfe3db] py-4 no-underline"
+					>
+						{label}
+					</a>
+				</li>
+			))}
+		</ul>
+	</section>
 </Layout>

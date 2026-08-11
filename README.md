@@ -6,6 +6,19 @@ bun create astro@latest -- --template minimal
 
 > 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
+## Visitor counter
+
+The site includes a server-side unique visitor counter at `/api/visitors`. Set
+`VISITOR_COUNTER_SECRET` to a long random value in production. The standalone
+Node server stores the counter in `.data/visitors.json`; set
+`VISITOR_COUNTER_FILE` if the deployment needs a different writable location.
+
+The counter uses a signed HttpOnly cookie and a short-lived HMAC of the client
+address and user agent as a fallback when a cookie is removed. It also applies
+same-origin checks and rate limiting. Anonymous visitor counts cannot identify
+a human with absolute certainty, so users who change both their browser
+identity and network can still be counted again.
+
 ## 🚀 Project Structure
 
 Inside of your Astro project, you'll see the following folders and files:

@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Starfield from "../components/Starfield";
 import { ClientRouter } from "astro:transitions";
-import Trail from "../components/Trail";
+import VisitorCounter from "../components/VisitorCounter";
 interface Props {
 	title: string;
 	description?: string;
@@ -58,6 +58,7 @@ const publishedDatetime = publishedAt?.toISOString();
 	</head>
 	<body>
 		<Header />
+		<VisitorCounter client:load />
 		<main>
 			<Starfield client:only="preact" transition:persist/>
 			<slot />

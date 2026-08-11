@@ -25,7 +25,8 @@ a {
 
 header,
 main,
-footer {
+footer,
+.visitor-counter {
 	width: min(100% - 2rem, 68rem);
 	margin-inline: auto;
 }
@@ -60,6 +61,35 @@ nav {
 
 .nav-links a {
 	text-decoration: none;
+}
+
+.visitor-counter {
+	display: flex;
+	align-items: baseline;
+	gap: 0.7rem;
+	margin-top: 1rem;
+	padding: 0.7rem 1rem;
+	border: 1px solid rgb(223 227 219 / 0.35);
+	border-radius: 0.9rem;
+	background: rgb(255 255 255 / 0.04);
+}
+
+.visitor-counter__label {
+	color: powderblue;
+	font-size: 0.7rem;
+	font-weight: 750;
+	letter-spacing: 0.13em;
+}
+
+.visitor-counter__value {
+	font-variant-numeric: tabular-nums;
+	font-size: 1.2rem;
+	letter-spacing: 0.03em;
+}
+
+.visitor-counter__note {
+	color: #aab5c7;
+	font-size: 0.78rem;
 }
 
 main {
