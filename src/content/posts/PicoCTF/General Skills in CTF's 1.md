@@ -8,70 +8,73 @@ image:
   alt: "ピンク色に輝く暗い背景に浮かぶAstroのロゴ。"
 tags: ["picoCTF"]
 ---
-# General Skills in CTF's 1
+## Problem set 1
 
-## problem set1
+### Let's warm up
 
-### lets warm up
+> **Q.** 0x70はASCIIで何か?
 
-Q.0x70はASCIIで何か?
-
+```text
 7 * 16 = 112
 で112は小文字のp
+```
 
-picoCTF{p}
+**Flag:** `picoCTF{p}`
 
 ### 2warm
 
-Q.42をバイナリ(0と1)に変換して
+> **Q.** 42をバイナリ(0と1)に変換して
 
+```text
 101010
 となる
+```
 
-picoCTF{101010}
+**Flag:** `picoCTF{101010}`
 
-### warmed up
+### Warmed up
 
-Q.0x3Dを10進数へ
-A.61
+> **Q.** 0x3Dを10進数へ
+>
+> **A.** 61
 
-3*16 = 48
-D*1  = 13
+```text
+3 * 16 = 48
+D * 1  = 13
+```
 
-picoCTF{61}
+**Flag:** `picoCTF{61}`
 
-## problem set2
+## Problem set 2
 
-### Obdient Cat
+### Obedient Cat
 
-Q.flagが平文でおいてあるから
+> **Q.** flagが平文でおいてあるから
 
-picoctf{s4n1ty_v3r1f13d_9b8fa0bc}
+**Flag:** `picoctf{s4n1ty_v3r1f13d_9b8fa0bc}`
 
 ### Wave a flag
 
-Q.flagを探せ
+> **Q.** flagを探せ
 
-ctrl+fでpicoCTFに検索をかければ早い
+ctrl+fでpicoCTFに検索をかければ早い。
 
-picoCTF{b1scu1ts_4nd_gr4vy_ac5832c}
+**Flag:** `picoCTF{b1scu1ts_4nd_gr4vy_ac5832c}`
 
 ### convertme.py
 
-Q.スクリプトを走らせて10進数から2進数にしてflagを取得して
+> **Q.** スクリプトを走らせて10進数から2進数にしてflagを取得して
 
-普通に走らせるだけ
-72を得たのでそれのバイナリにして1001010を返却
+普通に走らせるだけ。
+72を得たので、それのバイナリにして1001010を返却。
 
-picoCTF{4ll_y0ur_b4535_9c3b7d4d}
+**Flag:** `picoCTF{4ll_y0ur_b4535_9c3b7d4d}`
 
 ### What's a net cat?
 
-Q.ncを使って特定のポートにアクセスしてflagを取得して
+> **Q.** ncを使って特定のポートにアクセスしてflagを取得して
 
-インスタンスを立ち上げ
-nc tutorialで見てみる
-nc -arg hostname portらしいので接続
+インスタンスを立ち上げ、nc tutorialで見てみる。
+`nc -arg hostname port`らしいので接続。
 
-picoCTF{nEtCat_Mast3ry_0d33dA2C}
-
+**Flag:** `picoCTF{nEtCat_Mast3ry_0d33dA2C}`
