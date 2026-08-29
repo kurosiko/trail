@@ -1,19 +1,16 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import PostListItem from "../components/PostListItem.astro";
-import { getPostGroups, getPosts, getTopics } from "../utils/post-query";
+import { getPostDate } from "../utils/post-date";
+import { getPosts, getTopics } from "../utils/post-query";
 
 const requestedTopic = Astro.url.searchParams.get("topic") ?? "";
 const allPosts = await getPosts();
 const topics = getTopics(allPosts);
 const selectedTopic = topics.includes(requestedTopic) ? requestedTopic : "";
 const posts = selectedTopic ? await getPosts(selectedTopic) : allPosts;
-const postGroups = getPostGroups(posts);
-const pageTitle = selectedTopic ? `${selectedTopic} | Trail` : "Blog | Trail";
-const pageDescription = selectedTopic ? `検索結果:${selectedTopic}` : "Trailの記事一覧";
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
+<Layout title="Blog | Trail" description="Trailの記事一覧">
 	<section>
 		<p class="eyebrow">Blog</p>
 		<h1>Posts</h1>
@@ -26,38 +23,35 @@ const pageDescription = selectedTopic ? `検索結果:${selectedTopic}` : "Trail
 				))}
 			</select>
 		</form>
-		<div class="post-hierarchy mt-8">
-			{postGroups.map((group) => (
-				<details class="post-provider" data-group open>
-					<summary>
-						<span>{group.provider}</span>
-						<small>{group.directPosts.length + [...group.courses.values()].flat().length} 件</small>
-					</summary>
-					<div class="post-provider-content">
-						{group.directPosts.length > 0 && (
-							<ul class="post-items" data-items>
-								{group.directPosts.map((post) => <PostListItem post={post} />)}
-							</ul>
-						)}
-						{[...group.courses.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([course, coursePosts]) => (
-							<details class="post-course" data-group open>
-								<summary>
-									<span>{course}</span>
-									<small>{coursePosts.length} 件</small>
-								</summary>
-								<ul class="post-items" data-items>
-									{coursePosts.map((post) => <PostListItem post={post} />)}
-								</ul>
-							</details>
-						))}
-					</div>
-				</details>
-			))}
-		</div>
+		<ul class="mt-8 list-none border-t border-[#dfe3db] p-0">
+			{
+				posts.map((post) => {
+					const published = getPostDate(post.data.pubDate);
+
+					return (
+						<li data-topics={post.data.tags.join(",")}>
+							<a
+								href={`/posts/${post.id}`}
+								class="flex justify-between gap-4 border-b border-[#dfe3db] py-4 no-underline"
+							>
+								<span>
+									<strong class="block">{post.data.title}</strong>
+									<small class="mt-1 block font-normal text-[#a9b4c9]">{post.data.description}</small>
+								</span>
+								<div class="text-[#667085] text-right">
+									<time datetime={published.datetime}>{published.label}</time>
+									<br />
+									<small>{post.id}</small>
+								</div>
+							</a>
+						</li>
+					);
+				})
+			}
+		</ul>
 		{posts.length === 0 && <p class="mt-8">該当する投稿はありません。</p>}
 	</section>
 </Layout>
-
 
 <script>
 	const applyTopicFilter = () => {
@@ -68,15 +62,10 @@ const pageDescription = selectedTopic ? `検索結果:${selectedTopic}` : "Trail
 		const isKnownTopic = [...select.options].some((option) => option.value === requestedTopic);
 		const selectedTopic = isKnownTopic ? requestedTopic : "";
 		select.value = selectedTopic;
-		document.title = selectedTopic ? `${selectedTopic} | Trail` : "Blog | Trail";
 
 		for (const post of document.querySelectorAll<HTMLElement>("[data-topics]")) {
 			const topics = (post.dataset.topics ?? "").split(",");
 			post.hidden = Boolean(selectedTopic) && !topics.includes(selectedTopic);
-		}
-
-		for (const group of document.querySelectorAll<HTMLElement>("[data-group]")) {
-			group.hidden = !group.querySelector("[data-topics]:not([hidden])");
 		}
 	};
 
