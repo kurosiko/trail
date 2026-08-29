@@ -128,6 +128,84 @@ p {
 	color: #667085;
 }
 
+.post-hierarchy {
+	display: grid;
+	gap: 0.75rem;
+}
+
+.post-provider,
+.post-course {
+	border: 1px solid rgb(223 227 219 / 0.75);
+	border-radius: 0.75rem;
+	background: rgb(255 255 255 / 0.025);
+}
+
+.post-provider > summary,
+.post-course > summary {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	cursor: pointer;
+	padding: 0.8rem 1rem;
+	font-weight: 700;
+	list-style-position: inside;
+}
+
+.post-provider > summary small,
+.post-course > summary small {
+	color: #a9b4c9;
+	font-size: 0.8rem;
+	font-weight: 500;
+}
+
+.post-provider-content {
+	display: grid;
+	gap: 0.75rem;
+	padding: 0 0.75rem 0.75rem;
+}
+
+.post-course {
+	background: rgb(7 21 51 / 0.35);
+}
+
+.post-course > summary {
+	font-weight: 600;
+}
+
+.post-items {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	border-top: 1px solid rgb(223 227 219 / 0.45);
+}
+
+.post-item-link {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 0.85rem 0.25rem;
+	border-bottom: 1px solid rgb(223 227 219 / 0.45);
+	text-decoration: none;
+}
+
+.post-item-meta {
+	color: #667085;
+	text-align: right;
+	white-space: nowrap;
+}
+
+@media (max-width: 40rem) {
+	.post-item-link {
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.post-item-meta {
+		text-align: left;
+	}
+}
+
 .tag-list {
 	display: flex;
 	gap: 0.5rem;

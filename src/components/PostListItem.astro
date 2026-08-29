@@ -1,0 +1,25 @@
+---
+import { getPostDate } from "../utils/post-date";
+import type { Post } from "../utils/post-query";
+
+interface Props {
+	post: Post;
+}
+
+const { post } = Astro.props;
+const published = getPostDate(post.data.pubDate);
+---
+
+<li data-topics={post.data.tags.join(",")}>
+	<a href={`/posts/${post.id}`} class="post-item-link">
+		<span>
+			<strong class="block">{post.data.title}</strong>
+			<small class="mt-1 block font-normal text-[#a9b4c9]">{post.data.description}</small>
+		</span>
+		<div class="post-item-meta">
+			<time datetime={published.datetime}>{published.label}</time>
+			<br />
+			<small>{post.id}</small>
+		</div>
+	</a>
+</li>
