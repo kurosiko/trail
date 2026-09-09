@@ -23,6 +23,11 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
+# editor temporary files
+*.swp
+*.swo
+*.swn
+
 # Nix and direnv
 .direnv/
 result

@@ -1,0 +1,45 @@
+---
+interface Heading {
+	depth: number;
+	slug: string;
+	text: string;
+}
+
+interface Props {
+	headings: Heading[];
+}
+
+interface TreeHeading extends Heading {
+	children: TreeHeading[];
+}
+
+const { headings } = Astro.props;
+const tree: TreeHeading[] = [];
+const parents: TreeHeading[] = [];
+
+for (const heading of headings) {
+	const node: TreeHeading = { ...heading, children: [] };
+	while (parents.at(-1) && parents.at(-1)!.depth >= node.depth) {
+		parents.pop();
+	}
+
+	const parent = parents.at(-1);
+	if (parent) {
+		parent.children.push(node);
+	} else {
+		tree.push(node);
+	}
+	parents.push(node);
+}
+---
+
+<ul>
+	{
+		tree.map((h) => (
+			<li>
+				<a href={`#${h.slug}`}>{h.text}</a>
+				{h.children.length > 0 && <Astro.self headings={h.children} />}
+			</li>
+		))
+	}
+</ul>

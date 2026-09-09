@@ -1,15 +1,18 @@
 ---
+import type { MarkdownHeading } from "astro";
 import type { CollectionEntry } from "astro:content";
 
+import PostTree from "../components/PostTree.astro";
 import PostMeta from "../components/PostMeta.astro";
 import { getPostDate } from "../utils/post-date";
 import Layout from "./Layout.astro";
 
 interface Props {
 	post: CollectionEntry<"posts">;
+	headings?: MarkdownHeading[];
 }
 
-const { post } = Astro.props;
+const { post, headings = [] } = Astro.props;
 const { title, description, pubDate, author, tags, image } = post.data;
 const published = getPostDate(pubDate);
 ---
@@ -24,7 +27,7 @@ const published = getPostDate(pubDate);
 	image={image}
 >
 	<a href="/posts">Back</a>
-	<article>
+	<article class="relative">
 		<PostMeta
 			title={title}
 			publishedAt={published.datetime}
@@ -32,8 +35,32 @@ const published = getPostDate(pubDate);
 			author={author}
 			tags={tags}
 		/>
+		{headings.length > 0 && (
+			<aside class="post-tree" aria-label="目次">
+				<strong>目次</strong>
+				<PostTree headings={headings} />
+			</aside>
+		)}
 		<div class="post-content">
 			<slot />
 		</div>
 	</article>
 </Layout>
+
+<script>
+	const syncPostTreePosition = () => {
+		const postMeta = document.querySelector<HTMLElement>(".post-header");
+		const postTree = document.querySelector<HTMLElement>(".post-tree");
+
+		if (!postMeta || !postTree) return;
+
+		postTree.style.setProperty(
+			"--post-tree-top",
+			`${Math.max(16, postMeta.getBoundingClientRect().top)}px`,
+		);
+	};
+
+	document.addEventListener("astro:page-load", syncPostTreePosition);
+	window.addEventListener("resize", syncPostTreePosition);
+	syncPostTreePosition();
+</script>

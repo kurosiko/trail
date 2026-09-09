@@ -159,6 +159,39 @@ p {
 	max-width: 48rem;
 }
 
+.post-tree {
+	position: fixed;
+	top: var(--post-tree-top, 1rem);
+	right: max(1rem, calc((100vw - 68rem) / 2));
+	width: min(16rem, calc(100vw - 2rem));
+	max-height: calc(100vh - var(--post-tree-top, 1rem) - 1rem);
+	overflow-y: auto;
+	margin: 0;
+	padding: 1rem 1.25rem;
+	border: 1px solid #dfe3db;
+	border-radius: 0.5rem;
+}
+
+@media (max-width: 80rem) {
+	.post-tree {
+		position: static;
+		width: auto;
+		max-width: 48rem;
+		max-height: none;
+		overflow: visible;
+		margin-block: 1.5rem 2rem;
+	}
+}
+
+.post-tree > ul {
+	margin: 0.5rem 0 0;
+	padding-inline-start: 1.25rem;
+}
+
+.post-tree ul ul {
+	padding-inline-start: 1.25rem;
+}
+
 .post-content :where(h1, h2, h3, h4, h5, h6) {
 	margin-block: 2rem 0.75rem;
 	line-height: 1.25;
