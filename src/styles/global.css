@@ -54,7 +54,7 @@ nav {
 
 .site-logo {
 	display: block;
-	width: clamp(7rem, 18vw, 10rem);
+	width: clamp(4.5rem, 14vw, 8rem);
 	height: auto;
 }
 
