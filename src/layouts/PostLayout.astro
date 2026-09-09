@@ -36,12 +36,15 @@ const published = getPostDate(pubDate);
 			tags={tags}
 		/>
 		{headings.length > 0 && (
-			<aside class="post-tree" aria-label="目次">
-				<strong>目次</strong>
+			<aside class="post-tree" aria-label="Menu">
+				<strong>Menu</strong>
 				<PostTree headings={headings} />
 			</aside>
 		)}
-		<div class="post-content">
+        <div class="text-4xl">
+            TOP
+        </div>
+        <div class="post-content">
 			<slot />
 		</div>
 	</article>

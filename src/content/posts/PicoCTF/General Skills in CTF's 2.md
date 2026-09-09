@@ -37,7 +37,7 @@ cryptography不足のエラーが出たため、追加して実行。
 
 ```text
 Usage: ende.py (-e/-d) [file]
--e -dはencode decodeのことと予想してdecodeしてみる
+-eはencode、-dはdecodeを表す。ここでは-dを使う。
 ```
 
 ```console
@@ -106,7 +106,7 @@ $ cat ./a.txt
 $ cat ./b.txt
 ```
 
-何はともあれflag発見。
+flagを発見する。
 
 **Flag:** `picoCTF{f1nd_15_f457_ab443fd1}`
 
@@ -122,7 +122,7 @@ $ grep -ro "picoCTF{.*}" ./big-zip-files/
 ./big-zip-files/folder_pmbymkjcya/folder_cawigcwvgv/folder_ltdayfmktr/folder_fnpfclfyee/whzxrpivpqld.txt:picoCTF{gr3p_15_m4g1c_ef8790dc}
 ```
 
-見つかった。
+flagが見つかる。
 
 **Flag:** `picoCTF{gr3p_15_m4g1c_ef8790dc}`
 
@@ -187,4 +187,4 @@ picoCTF{digital_plumb3r_00da27CC}
 
 ---
 
-General Skills in CTF'sはここまで。お疲れ。
+General Skills in CTF'sは以上。

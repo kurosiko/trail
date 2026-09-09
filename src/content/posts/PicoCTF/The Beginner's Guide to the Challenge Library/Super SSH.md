@@ -10,7 +10,7 @@ tags: ["picoCTF"]
 ---
 > **Q.** sshしてflagを取得してきて
 
-sshする。
+SSHで接続する。
 
 ```console
 $ ssh -p port ctf-player@hostname

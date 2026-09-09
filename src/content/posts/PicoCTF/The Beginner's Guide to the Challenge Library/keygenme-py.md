@@ -13,7 +13,7 @@ tags: ["picoCTF"]
 
 **もはや問題文すらない**
 
-とりあえず動かしてみる
+プログラムを実行する。
 
 ```
 Arcane Calculatorへようこそ、BENNETT
@@ -30,17 +30,16 @@ Arcane Calculator
 
 どうしますかBENNET?(a/b/c/d)
 ```
-といった具合だろうか
-LOLとかArcaneのパロディらしいが、私は分からないので特に触れることができない...
+このようなプログラムだ。
+LOLやArcaneのパロディだが、ここでは扱わない。
 
 
-目標としては
-key_full_template_trailを取得することである
-key_part_dynamic1_trailを持ってこれば大丈夫みたい
+目標は`key_full_template_trail`の取得だ。
+`key_part_dynamic1_trail`を求めればよい。
 
-check_keyで入力とkey_full_template_trailの文字数が同じで無いので受け付けないのでkey_part_dynamic1_trailは8文字で確定
+`check_key`は入力と`key_full_template_trail`の文字数が異なると受け付けないため、`key_part_dynamic1_trail`は8文字になる。
 
-username_trailをsha256にかけたものを16進数に変換してそこからindex一つ一つ確認していくだけ
+`username_trail`をSHA-256でハッシュ化し、16進数の各インデックスを確認する。
 
 ```python
 import hashlib

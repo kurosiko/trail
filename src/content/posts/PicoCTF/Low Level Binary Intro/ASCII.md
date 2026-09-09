@@ -13,8 +13,7 @@ tags: ["picoCTF"]
 
 > **Q.** 次のHexをASCIIから文字列に変換して
 
-[CyberChef](https://gchq.github.io/CyberChef/)
-このサイトが便利。
+[CyberChef](https://gchq.github.io/CyberChef/)で変換する。
 
 
 picoCTF{45c11_n0_qu35710n5_1ll_t311_y3_n0_l135_445d4180}

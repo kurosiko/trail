@@ -11,7 +11,7 @@ tags: ["bun"]
 
 # Bunにおけるテスト
 
-これまでBunの機能でテストを書いたことがなかった。Trailの開発で初めて書く。
+Trailの開発で初めてBunの機能を使ったテストを書く。
 
 
 Trailの記事階層を区別するため、pathからオブジェクトを生成して返す関数を作る。
@@ -54,7 +54,7 @@ post-query.tsからgetPosts関数を読み込む。
 ```ts
 $bun test src/utils/post-query.test.ts
 ```
-これで実行する。
+テストを実行する。
 
 ```
 bun test v1.3.13 (bf2e2cec)
@@ -71,4 +71,4 @@ Ran 1 test across 1 file. [14.00ms]
 テスト結果はこのように表示される。
 テストの実行結果も確認できた。
 
-今回はmodule mockを使った。他のmockも試したい。
+今回はmodule mockを使った。

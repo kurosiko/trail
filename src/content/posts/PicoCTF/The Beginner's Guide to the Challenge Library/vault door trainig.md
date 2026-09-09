@@ -13,22 +13,21 @@ tags: ["picoCTF"]
 
 > **Q.** blueprintsを探して、ただしパスワードが必要なのでソースコードから割り出してね
 
-Javaファイルが渡されている。
-jdk入れるのめんどいなぁとか思いながら...
-Javaは触ったことがないのでよく分からない。
-```
+Javaファイルを、`JDK`でコンパイルして実行する。
+
+```console
 $ javac VaultDoorTrainig.java
 $ java VaultDoorTrainig
 ```
-で動いた。
-下の方にパスワードがそのまま置いてある。これでよさそうだ。
-尚且つ
+
+下部にパスワードがそのまま記載されている。
+
 ```java
 String input = userInput.substring(...)
-
 ```
-とあり、userInputからpicoCTF{...}の中身だけを検証しているようだ。
-flagはパスワードにpicoCTF{}を付けたものだ。
+
+`userInput`から`picoCTF{...}`の中身だけを検証している。
+パスワードを`picoCTF{}`で囲めばflagになる。
 
 
 **Flag:** `picoCTF{w4rm1ng_Up_w1tH_jAv4_000iPnsaWOY}`

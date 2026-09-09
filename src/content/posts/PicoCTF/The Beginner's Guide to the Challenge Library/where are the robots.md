@@ -14,14 +14,13 @@ tags: ["picoCTF"]
 CSSにコメントアウトと謎のflag指定はあるが、肝心の要素がない。
 
 ヒントを見ると「作成者があなたに見られたくないところはどこか?」とある。
-分からないのでカンニング。robot.txtのことだ。
-今回は自分がrobotだった。
+ヒントから`robots.txt`を確認する。
 
 ```text
 User-agent: *
 Disallow: /cc6b1.html
 ```
 
-とあるのでアクセスしてflagを取得。
+とあるので、アクセスしてflagを取得する。
 
 **Flag:** `picoCTF{ca1cu1at1ng_Mach1n3s_cc6b1}`

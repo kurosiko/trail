@@ -37,7 +37,7 @@ for (const heading of headings) {
 	{
 		tree.map((h) => (
 			<li>
-				<a href={`#${h.slug}`}>{h.text}</a>
+				<a href={`#${h.slug}`} class="hover:opacity-50 transition-opacity">{h.text}</a>
 				{h.children.length > 0 && <Astro.self headings={h.children} />}
 			</li>
 		))

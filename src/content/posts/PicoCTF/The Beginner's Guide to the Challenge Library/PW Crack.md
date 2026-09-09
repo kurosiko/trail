@@ -185,4 +185,4 @@ picoCTF{h45h_sl1ng1ng_40f26f81}
 
 **Flag:** `picoCTF{h45h_sl1ng1ng_40f26f81}`
 
-以上でPW Crackは終了。お疲れ。
+以上でPW Crackは終了。

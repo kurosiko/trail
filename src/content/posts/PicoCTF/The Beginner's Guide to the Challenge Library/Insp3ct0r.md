@@ -11,7 +11,7 @@ tags: ["picoCTF"]
 > **Q.** Kishor Balanが、次のコードは確認する必要がありそうとひっそり教えてくれた。
 
 インスタンスを起動するとWebページのリンクが表示される。
-開発者ツールで確認すると、以下を発見。
+開発者ツールで確認すると、以下が見つかる。
 
 ```html
 <!-- Html is neat. Anyways have 1/3 of the flag: picoCTF{tru3_d3 -->
