@@ -55,7 +55,7 @@ def level_2_pw_check():
     print("That password is incorrect")
 ```
 
-ASCIIになっただけなので、これをデコードしてあげる。
+ASCIIになったのでデコードする。
 
 ```console
 Please enter correct password for flag: de76
@@ -67,9 +67,9 @@ picoCTF{tr45h_51ng1ng_489dea9a}
 
 ### PW Crack 3
 
-ここではハッシュが登場する。まずはバイナリファイルの中身を確認するために、
+ここではハッシュが登場する。バイナリファイルの中身を確認するため、
 `strings`や`bvi`を試したが、パスワードの手がかりは見つからなかった。
-`bvi`はバイナリエディターなので、バイナリを文字化けさせずに確認するためのヒントだったようだ。
+`bvi`はバイナリエディター。バイナリを文字化けさせずに確認するためのヒントだ。
 
 パスワードの候補は`pos_pw_list`にまとまっているため、候補を順番に検証する。
 
@@ -137,8 +137,8 @@ That password is incorrect
 
 ### PW Crack 4
 
-PW Crack 3の候補が100個になっただけで、検証方法は同じである。
-100個分のログを確認する必要はないので、`grep`でflagだけを取り出す。
+PW Crack 3の候補が100個になっただけで、検証方法は同じ。
+ログを確認せず、`grep`でflagだけを取り出す。
 
 ```console
 $ uv run level4_solve.py | grep -o "picoCTF{.*}"
@@ -185,4 +185,4 @@ picoCTF{h45h_sl1ng1ng_40f26f81}
 
 **Flag:** `picoCTF{h45h_sl1ng1ng_40f26f81}`
 
-以上でPW Crackは終了である。お疲れさまでした。
+以上でPW Crackは終了。お疲れ。

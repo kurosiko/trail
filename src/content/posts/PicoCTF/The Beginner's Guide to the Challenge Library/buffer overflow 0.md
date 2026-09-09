@@ -39,4 +39,4 @@ signal(SIGSEGV, sigsev_handler);
 ```
 
 `signal`でエラーハンドラーを登録していた
-なので単にエラーを起こした時にflag.txtの中身を出すという簡単なコードでした。
+エラーを起こしたときにflag.txtの中身を出すだけのコードだった。

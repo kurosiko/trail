@@ -12,9 +12,9 @@ tags: ["astro", "view-transitions", "spa", "frontend"]
 
 ### ClientRouterとは
 
-SPAのような遷移を提供する
+SPA風の遷移を提供する。
 
-`Layout.astro`などのルート階層の`<head>`内に配置することが一般的
+`Layout.astro`など、ルート階層の`<head>`に配置する。
 
 ```astro
 ---
@@ -35,18 +35,18 @@ import { ClientRouter } from 'astro:transitions';
 ```
 
 1. **フルリロードの防止**
-   - SPA"風"である
-   - 遷移の前に移動先のHTMLをfetchして差分を更新する
-   - JSが無効な時はMPAに切り替わる
+   - SPA風の遷移
+   - 遷移前に移動先のHTMLをfetchし、差分を更新
+   - JS無効時はMPAに切り替え
 
-2. **状態・DOMの永続化(`transition:persisit`)**
-   - 遷移による状態を保持できる
-   - アンマウント・再マウントの防止
+2. **状態・DOMの永続化(`transition:persist`)**
+   - 遷移後も状態を保持
+   - アンマウント・再マウントを防止
 
 3. **アニメーションの追加**
-   - WebViewTransitions APIをベースに作られている
+   - View Transitions APIをベースにする
    - [Build in animation directives](https://docs.astro.build/ja/guides/view-transitions/#built-in-animation-directives)
 
 4. **ライフサイクルイベントの提供**
-   - ClientRouterを使用すると従来のDOMContentLoadedなどが発火しなくなるため提供
+   - ClientRouter使用時はDOMContentLoadedなどが発火しないため、代替イベントを提供
    - [Lifecycle events](https://docs.astro.build/ja/guides/view-transitions/#lifecycle-events)

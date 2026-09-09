@@ -11,17 +11,17 @@ tags: ["bun"]
 
 # Bunにおけるテスト
 
-恥ずかしながらここまでbunの機能を使ってテストをしたことがなかったので今回のtrailの開発の中でテストを書いてみた
+これまでBunの機能でテストを書いたことがなかった。Trailの開発で初めて書く。
 
 
-このタイミングでtrailの記事の階層を区別して表示するためにpathからオブジェクトを生成して返す関数の作成をしている
+Trailの記事階層を区別するため、pathからオブジェクトを生成して返す関数を作る。
 
-まずデフォルトだとbunの型を認識してくれなかったので手動で追加する
+Bunの型を認識できなかったため、手動で追加する。
 ```shell
 $bun add -d @types/bun
 
 ```
-そしたらmodule.test.tsを書いていく
+次にmodule.test.tsを書く。
 ```ts
 import { expect, mock, test } from "bun:test"
 
@@ -42,19 +42,19 @@ test("getPost Func",async ()=>{
 })
 
 ```
-動作としては
-astro:contentのmockを作成する
+処理の流れ:
+astro:contentのmockを作る。
 
-mockとはテストなどに使う偽のデーターだと思ってくれればいい
-(厳密には返すデーターの種類によって違うらしい)
+mockはテスト用の偽データ。
+返すデータの型によって扱いは異なる。
 
-そして、post-query.tsからgetPost関数を読み込む
-postsに対してgetPosts関数の実行結果を返し、expect(posts)でpostsが1つの要素を持つことをチェックしている。
+post-query.tsからgetPosts関数を読み込む。
+`posts`に`getPosts`の結果を入れ、`expect(posts)`で要素数1を確認する。
 
 ```ts
 $bun test src/utils/post-query.test.ts
 ```
-で実行する
+これで実行する。
 
 ```
 bun test v1.3.13 (bf2e2cec)
@@ -68,7 +68,7 @@ src/utils/post-query.test.ts:
 Ran 1 test across 1 file. [14.00ms]
 ```
 
-といった感じで結果が出てくる
-しっかりconsole.logした結果としても得られた。
+テスト結果はこのように表示される。
+テストの実行結果も確認できた。
 
-今回はmoduleのmockだったが色々なタイプのmockがあるみたいなので使えるところは使っていきたい。
+今回はmodule mockを使った。他のmockも試したい。

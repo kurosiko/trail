@@ -10,12 +10,12 @@ tags: ["picoCTF"]
 ---
 > **Q.** `bDNhcm5fdGgzX3IwcDM1`は何を意味するでしょうか?
 
-Baseって言われているので、Base64 Decodeをしてみる。
+Base指定なので、Base64 Decodeする。
 
 ```text
 l3arn_th3_r0p35
 ```
 
-が得られた。一応、Learn the ropesと解釈できるものになったので、flagは以下の通り。
+`Learn the ropes`と読める。flagは以下。
 
 **Flag:** `picoCTF{l3arn_th3_r0p35}`

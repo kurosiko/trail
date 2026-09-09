@@ -1,0 +1,27 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import PostTree from "../../../components/PostTree.astro";
+
+const head = [
+  {
+    depth: 1,
+    slug: 'astroとは',
+    text: 'Astroとは'
+  },
+  {
+    depth: 2,
+    slug: '特徴とメリット',
+    text: '特徴とメリット'
+  },
+  {
+    depth: 3,
+    slug: '1-高速なパフォーマンス',
+    text: '1. 高速なパフォーマンス'
+  }
+];
+---
+
+<Layout title="PostTree Demo">
+  <PostTree headings={head} />
+</Layout>
+

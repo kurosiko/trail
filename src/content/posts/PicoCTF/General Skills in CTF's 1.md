@@ -57,7 +57,7 @@ D * 1  = 13
 
 > **Q.** flagを探せ
 
-ctrl+fでpicoCTFに検索をかければ早い。
+ctrl+fでpicoCTFを検索すればよい。
 
 **Flag:** `picoCTF{b1scu1ts_4nd_gr4vy_ac5832c}`
 
@@ -66,7 +66,7 @@ ctrl+fでpicoCTFに検索をかければ早い。
 > **Q.** スクリプトを走らせて10進数から2進数にしてflagを取得して
 
 普通に走らせるだけ。
-72を得たので、それのバイナリにして1001010を返却。
+72をバイナリに変換し、`1001010`を返す。
 
 **Flag:** `picoCTF{4ll_y0ur_b4535_9c3b7d4d}`
 
@@ -74,7 +74,7 @@ ctrl+fでpicoCTFに検索をかければ早い。
 
 > **Q.** ncを使って特定のポートにアクセスしてflagを取得して
 
-インスタンスを立ち上げ、nc tutorialで見てみる。
+インスタンスを起動し、nc tutorialで確認する。
 `nc -arg hostname port`らしいので接続。
 
 **Flag:** `picoCTF{nEtCat_Mast3ry_0d33dA2C}`

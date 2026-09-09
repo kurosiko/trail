@@ -11,10 +11,10 @@ tags: ["picoCTF"]
 
 # ASCII Numbers
 
-> **Q.**次のHexをASCIIから文字列に変換して
+> **Q.** 次のHexをASCIIから文字列に変換して
 
 [CyberChef](https://gchq.github.io/CyberChef/)
-このサイトを使うと便利かも
+このサイトが便利。
 
 
 picoCTF{45c11_n0_qu35710n5_1ll_t311_y3_n0_l135_445d4180}

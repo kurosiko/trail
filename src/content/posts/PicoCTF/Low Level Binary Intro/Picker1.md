@@ -11,9 +11,9 @@ tags: ["picoCTF"]
 
 # Picker1
 
-> **Q.**このサービスはランダムな数字を生成する、けど他に何かできるのか?
+> **Q.** このサービスはランダムな数字を生成する、けど他に何かできるのか?
 
-インスタンスを立ち上げてncで接続すると
+インスタンスを起動してncで接続すると、次のサービスが動く。
 
 ```
 Try entering "getRandomNumber" without the double quotes...
@@ -26,8 +26,7 @@ Try entering "getRandomNumber" without the double quotes...
 name 'g' is not defined
 ```
 
-こんな感じのサービスのようだ
-とりあえずinputを受け取っているのでどこかに探す
+このサービスは入力を受け取っている。処理を探す。
 
 ```python
 while(True):
@@ -40,9 +39,8 @@ while(True):
     break
 ```
 
-evalでコードとして解釈しているので
-受け取った関数を直で呼び出せるらしい
-なら使えそうな関数ないかなと探しているとwin()を発見
+入力をevalでコードとして解釈しているため、任意の関数を呼び出せる。
+使える関数を探すと、`win()`が見つかる。
 ```python
 def win():
   # This line will not work locally unless you create your own 'flag.txt' in
@@ -56,11 +54,11 @@ def win():
   print(str_flag)
 
 ```
-flagを読み込んで、後処理してstr_flagに最終的に加工したものが渡っている
-`str(hex(ord(c)))`は文字をUnicode(10進数)にしてHexにしてそれを文字列として認識させている
+flagを読み込み、加工した結果を`str_flag`に入れている。
+`str(hex(ord(c)))`は文字をUnicodeのコードポイントに変換し、16進数の文字列にする。
 
-つまりは最終的にflag.txtのUnicodeでdecodeされたHex表記のものが出力されるはずである
-ここまでくればあとは手動で戻してあげるだけだね
+最終的に、`flag.txt`の内容を16進数で出力する。
+あとは手動で戻せばよい。
 ```
 
 Try entering "getRandomNumber" without the double quotes...

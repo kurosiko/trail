@@ -10,9 +10,9 @@ tags: ["picoCTF"]
 ---
 > **Q.** 暗号学は簡単だよ、ROT13って知ってるかな?
 
-知らないのでググる。
-「**Rot**ate by **13** places」の略で、シーザー暗号の一種。13文字後のアルファベットに置き換えるらしい。
+知らないので調べる。
+「**Rot**ate by **13** places」の略で、シーザー暗号の一種。アルファベットを13文字ずらす。
 
-[ROT13](https://ja.wikipedia.org/wiki/ROT13)のサイトがあったので入力してみる。
+[ROT13](https://ja.wikipedia.org/wiki/ROT13)のサイトに入力する。
 
 **Flag:** `picoCTF{next_time_I'll_try_2_rounds_of_rot13_45559abd}`

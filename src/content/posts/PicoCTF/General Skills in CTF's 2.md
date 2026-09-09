@@ -14,7 +14,7 @@ tags: ["picoCTF"]
 
 > **Q.** ncを使ってお話ししてくれるプログラムに接続しよう、英語じゃないけどね
 
-ASCIIと思われるものが帰ってきた。解釈して以下の通り。
+ASCIIらしき文字列が返ってきた。解釈すると以下のとおり。
 
 **Flag:** `picoCTF{g00d_k1tty!_n1c3_k1tty!_a94e7}`
 
@@ -22,9 +22,9 @@ ASCIIと思われるものが帰ってきた。解釈して以下の通り。
 
 > **Q.** TAB保管を利用してflagを手に入れて
 
-zipをダウンロード、unzipしてからtabでスパスパ。
-最終的に実行ファイルとcのプログラムが出てきた。
-実行ファイルはなぜか動かなかったので、cのソースを確認。
+zipをダウンロードしてunzip、tabで探索。
+実行ファイルとCのプログラムが出てきた。
+実行ファイルは動かなかったため、Cのソースを確認。
 
 **Flag:** `picoCTF{l3v3l_up!_t4k3_4_r35t!_fc588427}`
 
@@ -32,8 +32,8 @@ zipをダウンロード、unzipしてからtabでスパスパ。
 
 > **Q.** スクリプトを使ってflagを入手して
 
-catしてみると、上の方にusageを出力するものがある。
-cryptographyが足りないエラーが出たので、追加して走らせると以下の表示が出る。
+catすると、先頭にusageを出す処理がある。
+cryptography不足のエラーが出たため、追加して実行。
 
 ```text
 Usage: ende.py (-e/-d) [file]
@@ -52,7 +52,7 @@ Please enter the password:720b6ad346f84cd483c60c7464dd95d4
 
 > **Q.** SSHで接続してflagを探して
 
-instanceを起動して発行されたhostnameとportでinし、instructionを読んで探し回る。
+インスタンスを起動し、発行されたhostnameとportで接続。instructionを読んで探索する。
 
 ```console
 $ ssh -p port ctf-player@hostname
@@ -74,7 +74,7 @@ picoCTF{xxsh_
 
 > **Q.** ファイルからflagを探せるかな? 手動でやると面倒だよね
 
-grepを使おう。macOSだと正規表現の-Pオプションが使えなかったので、以下のコマンドを使う。
+grepを使う。macOSでは正規表現の-Pオプションが使えないため、以下のコマンドを使う。
 
 ```console
 $ grep "picoCTF{.*}" ./file
@@ -93,13 +93,13 @@ $ unzip files.zip
 $ find ./files -name "uber-secret.txt" -exec cat {} +
 ```
 
-最後の`+`はcatを一回でまとめて実行するものらしい。イメージ的には以下の通り。
+最後の`+`はcatを一度に実行する指定。イメージは以下のとおり。
 
 ```console
 $ cat ./a.txt ./b.txt
 ```
 
-`;`も指定できて、こちらは以下のように実行する。
+`;`なら以下のように実行する。
 
 ```console
 $ cat ./a.txt
@@ -130,7 +130,7 @@ $ grep -ro "picoCTF{.*}" ./big-zip-files/
 
 > **Q.** バイナリをチェックしてくれ、bashスクリプトが助けになるよ!
 
-早速スクリプトを走らせようとするも、権限拒否されたので付与する。
+スクリプトを実行すると権限拒否。実行権限を付与する。
 
 ```console
 $ ./ltdis.sh
@@ -144,7 +144,7 @@ Usage: ltdis.sh <program-file>
 Bye!
 ```
 
-使い方を示されてしまったので、引数を指定する。
+使い方が表示されたので、引数を指定する。
 
 ```console
 $ ./ltdis.sh ./static
@@ -154,7 +154,7 @@ Disassembly successful! Available at: ./static.ltdis.x86_64.txt
 Ripping strings from binary with file offsets...                                    Any strings found in ./static have been written to ./static.ltdis.strings.txt with file offset
 ```
 
-Disassemblyしてくれたみたい。`./static.ltdis.x86_64.txt`と`./static.ltdis.strings.txt`にあるらしいのでチェックする。色々書いてあるのでgrep。
+Disassembly結果は`./static.ltdis.x86_64.txt`と`./static.ltdis.strings.txt`に出力された。内容をgrepする。
 
 ```console
 $ grep -o "picoCTF{.*}" ./static.ltdis.strings.txt
@@ -165,8 +165,8 @@ picoCTF{d15a5m_t34s3r_20335e41}
 
 > **Q.** ファイルから実行することなくflagを取得して
 
-ダウンロードしたファイルはバイナリだった。分からないのでヒントを見るとstringsとある。
-stringsコマンドはバイナリからテキストで表示できる部分を表示するみたいなので、grepにパイプを噛ませる。
+ダウンロードしたファイルはバイナリ。ヒントにstringsとある。
+stringsはバイナリ内の可読テキストを表示する。grepにパイプする。
 
 ```console
 $ strings ./strings | grep -o "picoCTF{.*}"
@@ -177,8 +177,8 @@ picoCTF{5tRIng5_1T_60eA8fdA}
 
 > **Q.** ファイルじゃないところからflagを探して
 
-インスタンスを立ち上げるとhostnameとportが発行される。とりあえずncで接続すると、たくさん流れてきて切られた。
-grepにパイプして絞っておく。適宜、下のhostnameとportは置き換える。
+インスタンスを起動するとhostnameとportが発行される。ncで接続すると大量の出力後に切断された。
+grepにパイプして絞る。hostnameとportは適宜置き換える。
 
 ```console
 $ nc hostname port | grep -o "picoCTF{.*}"
@@ -187,4 +187,4 @@ picoCTF{digital_plumb3r_00da27CC}
 
 ---
 
-General Skills in CTF'sはここで終わり。お疲れ様でした!
+General Skills in CTF'sはここまで。お疲れ。
