@@ -11,12 +11,12 @@ tags: ["picoCTF"]
 
 # Bit-O-Asm-1
 
-> **Q.** eaxレジスタにどんな値が入っていますか?
+> **Q.** eaxレジスタの値は?
 
-今回は`picoCTF{n}`の`n`を求める。
-10進数で答える。
+`picoCTF{n}` の `n` を求める。  
+答えは10進数。
 
-ASMを読む。命令を順に確認する。
+ASMを読む。命令を順に確認。
 
 
 ```asm
@@ -29,3 +29,11 @@ ASMを読む。命令を順に確認する。
 <+20>:    pop    rbp
 <+21>:    ret
 ```
+DWORD = unsigned int  
+`rbp-0x4` に `edi` を格納  
+QWORDは8の倍数のアドレスに格納されるため、`rbp-0x10` に `rsi` を格納  
+`eax` に `0x30` を直接代入してreturn。  
+
+`eax` に `0x30 = 48` が入っているだけ。
+
+picoCTF{48}

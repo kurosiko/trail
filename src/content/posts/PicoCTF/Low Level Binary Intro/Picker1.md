@@ -11,9 +11,9 @@ tags: ["picoCTF"]
 
 # Picker1
 
-> **Q.** このサービスはランダムな数字を生成する、けど他に何かできるのか?
+> **Q.** ランダムな数字を生成するサービス。他にできることは？
 
-インスタンスを起動してncで接続すると、次のサービスが動く。
+インスタンスを起動し、`nc` で接続。
 
 ```
 Try entering "getRandomNumber" without the double quotes...
@@ -26,7 +26,7 @@ Try entering "getRandomNumber" without the double quotes...
 name 'g' is not defined
 ```
 
-このサービスは入力を受け取っている。処理を探す。
+入力を受け取る処理を確認。
 
 ```python
 while(True):
@@ -39,8 +39,8 @@ while(True):
     break
 ```
 
-入力をevalでコードとして解釈しているため、任意の関数を呼び出せる。
-使える関数を探すと、`win()`が見つかる。
+入力を `eval` でコードとして解釈。任意の関数を呼び出せる。  
+使える関数を探すと、`win()` が見つかる。
 ```python
 def win():
   # This line will not work locally unless you create your own 'flag.txt' in
@@ -54,11 +54,11 @@ def win():
   print(str_flag)
 
 ```
-flagを読み込み、加工した結果を`str_flag`に入れている。
-`str(hex(ord(c)))`は文字をUnicodeのコードポイントに変換し、16進数の文字列にする。
+`flag` を読み込み、加工した結果を `str_flag` に格納。  
+`str(hex(ord(c)))` で文字をUnicodeのコードポイントに変換し、16進数の文字列にする。
 
-最終的に、`flag.txt`の内容を16進数で出力する。
-あとは手動で戻せばよい。
+`flag.txt` の内容を16進数で出力。  
+あとは手動で文字列に戻す。
 ```
 
 Try entering "getRandomNumber" without the double quotes...
