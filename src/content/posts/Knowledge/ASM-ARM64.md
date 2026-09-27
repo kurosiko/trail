@@ -1,5 +1,5 @@
 ---
-title: "Memory: ARM64"
+title: "ASM-ARM64"
 pubDate: 2026-09-01
 description: "ARM64のレジスタ、呼び出し規約、スタックメモリのメモ"
 author: "kurosiko"
@@ -9,9 +9,7 @@ image:
 tags: ["picoCTF"]
 ---
 
-# Memory: ARM64
-
-[Memory](/posts/knowledge/memory)から分けた、ARM64（AArch64、Apple Siliconを含む）のメモだ。
+# ASM-ARM64
 
 ここではAArch64のプロシージャ呼び出し規約（AAPCS64）における、整数・ポインタ引数の基本を扱う。macOSにはAAPCS64を基にした固有規則もあるが、この範囲では共通だ。
 第1〜8引数は`x0`〜`x7`（32ビットの値なら`w0`〜`w7`）に渡り、9個目以降は通常スタック側に渡る。
