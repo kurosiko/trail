@@ -1,7 +1,7 @@
 ---
 title: "Bit-O-Asm-2"
 pubDate: 2026-09-19
-description: ""
+description: "スタック上の値をeaxに読み込み、10進数に変換する"
 author: "kurosiko"
 image:
   url: "https://docs.astro.build/assets/rose.webp"
@@ -11,10 +11,10 @@ tags: ["picoCTF"]
 
 # Bit-O-Asm-2
 
-> **Q.** eaxレジスタの値は?
+> **Q.** `eax` レジスタの値は？
 
 ```asm
-<+0>:     endbr64 
+<+0>:     endbr64
 <+4>:     push   rbp
 <+5>:     mov    rbp,rsp
 <+8>:     mov    DWORD PTR [rbp-0x14],edi
@@ -25,19 +25,7 @@ tags: ["picoCTF"]
 <+26>:    ret
 ```
 
-```asm
-<+0>:     endbr64 
-<+4>:     push   rbp
-<+5>:     mov    rbp,rsp
-```
-Bit-O-Asm-1と同じく、関数の準備。  
-`[rbp-0x14]` に `edi` を格納  
-`[rbp-0x20]` に `rsi` を格納  
-`[rbp-0x4]` に `0x9fe1a` を代入  
-`eax` に `[rbp-0x4]` の値を格納  
-
-`[rbp-0x4]` 経由で `0x9fe1a` が `eax` に入る。  
-`0x9fe1a = 654874` なので、
+最初の3命令は関数の準備。続いて `edi` と `rsi` をスタックに保存する。`[rbp-0x4]` に `0x9fe1a` を書き込み、その値を `eax` に読み込む。`0x9fe1a` は10進数で `654874`。
 
 ```text
 picoCTF{654874}

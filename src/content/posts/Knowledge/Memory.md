@@ -1,7 +1,7 @@
 ---
 title: "Memory"
 pubDate: 2026-09-01
-description: "ASMをやるついでに調べたメモリ関係"
+description: "メモリ階層とx86-64のレジスタ・呼び出し規約のメモ"
 author: "kurosiko"
 image:
   url: "https://docs.astro.build/assets/rose.webp"
@@ -31,8 +31,7 @@ tags: ["picoCTF"]
 
 アセンブリ命令は、レジスタ、メモリ、命令に埋め込まれた即値を扱う。CPUは通常、キャッシュとRAMを区別せず同じメモリ空間としてアクセスする。
 
-このページではx86-64のレジスタと呼び出し規約を扱う。ARM64は
-[ARM64版のメモ](/posts/knowledge/memory-arm64)を参照。
+このページではx86-64のレジスタと呼び出し規約を扱う。ARM64の命令とレジスタは[ARM64のメモ](/posts/knowledge/asm-arm64)を参照。
 
 ## x86-64のレジスタ
 

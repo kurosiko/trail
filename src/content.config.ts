@@ -5,7 +5,7 @@ import { z } from "astro/zod";
 const posts = defineCollection({
 	loader: glob({
 		base: "./src/content/posts",
-		pattern: "**/*.md",
+		pattern: ["**/*.md", "!PicoCTF/Low Level Binary Intro/GDB/*.md"],
 	}),
 	schema: z.object({
 		title: z.string(),
@@ -14,7 +14,7 @@ const posts = defineCollection({
 		author: z.string(),
 		image: z
 			.object({
-				url: z.string().url(),
+				url: z.url(),
 				alt: z.string(),
 			})
 			.optional(),

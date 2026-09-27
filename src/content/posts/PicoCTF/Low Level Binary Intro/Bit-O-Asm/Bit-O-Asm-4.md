@@ -1,7 +1,7 @@
 ---
 title: "Bit-O-Asm-4"
 pubDate: 2026-09-19
-description: ""
+description: "cmpとjleの分岐を追ってeaxの値を求める"
 author: "kurosiko"
 image:
   url: "https://docs.astro.build/assets/rose.webp"
@@ -11,10 +11,10 @@ tags: ["picoCTF"]
 
 # Bit-O-Asm-4
 
-> **Q.** eaxレジスタの中身は?
+> **Q.** `eax` レジスタの値は？
 
 ```asm
-<+0>:     endbr64 
+<+0>:     endbr64
 <+4>:     push   rbp
 <+5>:     mov    rbp,rsp
 <+8>:     mov    DWORD PTR [rbp-0x14],edi
@@ -30,25 +30,13 @@ tags: ["picoCTF"]
 <+45>:    ret
 ```
 
-```asm
-<+0>:     endbr64 
-<+4>:     push   rbp
-<+5>:     mov    rbp,rsp
-```
-いつものやつ
-```
-<+8>:     mov    DWORD PTR [rbp-0x14],edi
-<+11>:    mov    QWORD PTR [rbp-0x20],rsi
-<+15>:    mov    DWORD PTR [rbp-0x4],0x9fe1a
-```
-\[rbp-0x14]<-edi
-\[rbp-0x20]<-rsi
-\[rbp-0x4]<-0x9fe1a
+最初の命令で関数の準備を行い、`edi` と `rsi` をスタックに保存する。`[rbp-0x4]` には `0x9fe1a` を代入する。
+
 ```asm
 <+22>:    cmp    DWORD PTR [rbp-0x4],0x2710
 ```
-`cmp`（compare）は比較命令。`if` 文に近い。  
-内部では `a - b` を計算し、結果をフラグレジスタに保存する。  
+
+`cmp` は2つの値を比較し、差に応じてフラグを更新する。メモリ上の値は変更しない。
 
 ```text
 [rbp-0x4] - 0x2710
@@ -57,12 +45,13 @@ tags: ["picoCTF"]
 = 644874
 ```
 
-結果は正の値なので、`a <= b` は偽。
+結果は正なので、符号付き比較の「以下」は偽になる。
+
 ```asm
 <+29>:    jle    0x55555555514e <main+37>
 ```
-`jle`（Jump if Less or Equal）は条件付きジャンプ。`cmp` の結果が0以下なら `<+37>` に移動する。
-今回は条件が偽なので、`<+31>` を実行。
+
+`jle` は符号付きで左辺が右辺以下なら `<+37>` に移動する。今回は移動せず、`<+31>` を実行する。
 
 ```asm
 <+31>:    sub    DWORD PTR [rbp-0x4],0x65
@@ -76,7 +65,7 @@ tags: ["picoCTF"]
            = 654773
 ```
 
-次の `jmp` で `<+41>` に移動。`<+37>` の `add` は実行しない。
+次の `jmp` で `<+41>` に移動する。`<+37>` の `add` は実行しない。
 
 ```asm
 <+35>:    jmp    0x555555555152 <main+41>

@@ -1,7 +1,7 @@
 ---
 title: "Bit-O-Asm-1"
 pubDate: 2026-09-01
-description: ""
+description: "eaxに代入された即値を10進数に変換する"
 author: "kurosiko"
 image:
   url: "https://docs.astro.build/assets/rose.webp"
@@ -11,13 +11,11 @@ tags: ["picoCTF"]
 
 # Bit-O-Asm-1
 
-> **Q.** eaxレジスタの値は?
+> **Q.** `eax` レジスタの値は？
 
-`picoCTF{n}` の `n` を求める。  
-答えは10進数。
+`picoCTF{n}` の `n` を10進数で求める。
 
-ASMを読む。命令を順に確認。
-
+命令を順に確認する。
 
 ```asm
 <+0>:     endbr64
@@ -29,11 +27,8 @@ ASMを読む。命令を順に確認。
 <+20>:    pop    rbp
 <+21>:    ret
 ```
-DWORD = unsigned int  
-`rbp-0x4` に `edi` を格納  
-QWORDは8の倍数のアドレスに格納されるため、`rbp-0x10` に `rsi` を格納  
-`eax` に `0x30` を直接代入してreturn。  
+`DWORD PTR` は4バイト、`QWORD PTR` は8バイトのメモリアクセスを表す。最初の2つの `mov` は `edi` と `rsi` をスタックに保存する。答えに関係するのは `<+15>` の命令で、`eax` に `0x30` を代入する。`0x30` は10進数で `48`。
 
-`eax` に `0x30 = 48` が入っているだけ。
-
+```text
 picoCTF{48}
+```
