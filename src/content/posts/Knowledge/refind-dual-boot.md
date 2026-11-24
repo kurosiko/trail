@@ -1,5 +1,5 @@
 ---
-title: "rEFIndでFedoraとWindowsの起動画面をそろえる"
+title: "rEFIndによるFedora・Windowsの起動管理"
 pubDate: 2026-11-24
 description: "ブートマネージャの見た目と、両OSの起動確認を切り分ける。"
 author: "kurosiko"
@@ -13,14 +13,15 @@ draft: true
 
 テーマが決めるのはメニューの見た目。UEFIがrEFIndを起動できること、rEFIndがそれぞれの起動先を選べること、その先で両OSが起動することは別々に確認する。導入時は起動順や既存エントリを控え、テーマを適用する前後で各OSの起動を確かめると、失敗した段階を絞れる。
 
-## 概念図
-
 ```mermaid
 flowchart TD
-  U[UEFI] --> R[rEFInd]
-  R --> F[Fedora]
-  R --> W[Windows]
+  accTitle: UEFIから各OSの起動処理へ渡す
+  U[UEFIの起動エントリ] --> R[rEFIndの選択画面]
+  R -->|Fedoraを選択| F[FedoraのEFIローダーなど]
+  R -->|Windowsを選択| W[Windows Boot Manager]
 ```
+
+Fedoraのエントリが何を起動するかはインストール構成に依存する。Secure Bootの設定やEFI実行ファイルの署名もテーマ設定とは別に確認する。
 
 ## 環境と確認状況
 

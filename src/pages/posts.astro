@@ -23,7 +23,7 @@ const posts = selectedTopic ? await getPosts(selectedTopic) : allPosts;
 				))}
 			</select>
 		</form>
-		<ul class="mt-8 list-none border-t border-[#dfe3db] p-0">
+		<ul class="mt-8 list-none border-t border-[#dfe3db] p-0 *:hover:bg-white/20 *:transition-colors">
 			{
 				posts.map((post) => {
 					const published = getPostDate(post.data.pubDate);

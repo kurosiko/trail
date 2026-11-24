@@ -1,5 +1,5 @@
 ---
-title: "Bit-O-Asm-4"
+title: "x86-64の符号付き比較と条件分岐"
 pubDate: 2026-09-19
 description: "cmpとjleの分岐を追ってeaxの値を求める"
 author: "kurosiko"
@@ -8,8 +8,6 @@ image:
   alt: "ピンク色に輝く暗い背景に浮かぶAstroのロゴ。"
 tags: ["picoCTF"]
 ---
-
-# Bit-O-Asm-4
 
 > **Q.** `eax` レジスタの値は？
 
@@ -45,7 +43,7 @@ tags: ["picoCTF"]
 = 644874
 ```
 
-結果は正なので、符号付き比較の「以下」は偽になる。
+この入力では符号付き減算がオーバーフローせず、結果は正で0でもない。`jle` の条件 `ZF = 1 または SF ≠ OF` は偽。
 
 ```asm
 <+29>:    jle    0x55555555514e <main+37>

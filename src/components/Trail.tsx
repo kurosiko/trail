@@ -19,7 +19,7 @@ export default function Trail() {
     if (!ctx) return;
     let animationFrameId: number;
     let particles: Particle[] = [];
-    const colors = ["#818cf8", "#c084fc", "#38bdf8"];
+    const colors = ["#fff",];
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;

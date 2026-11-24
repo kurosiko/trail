@@ -35,35 +35,17 @@ const published = getPostDate(pubDate);
 			author={author}
 			tags={tags}
 		/>
-		{headings.length > 0 && (
-			<aside class="post-tree" aria-label="Menu">
-				<strong>Menu</strong>
-				<PostTree headings={headings} />
-			</aside>
-		)}
-        <div class="text-4xl">
-            TOP
-        </div>
-        <div class="post-content">
-			<slot />
+		<div class="post-body">
+			{headings.length > 0 && (
+				<aside class="post-tree border border-white/50 p-5 rounded-lg" aria-label="Menu">
+					<strong>Menu</strong>
+					<PostTree headings={headings} />
+					<strong><a href="#">TOP</a></strong>
+				</aside>
+			)}
+			<div class="post-content">
+				<slot />
+			</div>
 		</div>
 	</article>
 </Layout>
-
-<script>
-	const syncPostTreePosition = () => {
-		const postMeta = document.querySelector<HTMLElement>(".post-header");
-		const postTree = document.querySelector<HTMLElement>(".post-tree");
-
-		if (!postMeta || !postTree) return;
-
-		postTree.style.setProperty(
-			"--post-tree-top",
-			`${Math.max(16, postMeta.getBoundingClientRect().top)}px`,
-		);
-	};
-
-	document.addEventListener("astro:page-load", syncPostTreePosition);
-	window.addEventListener("resize", syncPostTreePosition);
-	syncPostTreePosition();
-</script>

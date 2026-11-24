@@ -1,5 +1,5 @@
 ---
-title: "Super SSH"
+title: "SSH接続と接続先ポートの指定"
 pubDate: 2026-08-23
 description: ""
 author: "kurosiko"
@@ -10,7 +10,7 @@ tags: ["picoCTF"]
 ---
 > **Q.** sshしてflagを取得してきて
 
-SSHで接続する。
+演習で発行された接続先で、`port` と `hostname` を置き換える。
 
 ```console
 $ ssh -p port ctf-player@hostname

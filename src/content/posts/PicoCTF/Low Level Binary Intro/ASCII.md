@@ -1,5 +1,5 @@
 ---
-title: "ASCII Numbers"
+title: "ASCIIの16進表記と文字変換"
 pubDate: 2026-09-01
 description: "16進数のバイト列をASCII文字列に変換する"
 author: "kurosiko"
@@ -9,9 +9,14 @@ image:
 tags: ["picoCTF"]
 ---
 
-# ASCII Numbers
+変換は1バイトずつ行う。例えば `0x41` は整数の65で、ASCIIでは文字 `A` に対応する。
 
-> **Q.** 次のHexをASCIIから文字列に変換して
+```text
+16進の1バイト    整数値    ASCII
+0x41        ->    65  ->    A
+```
+
+> **Q.** 16進数で表されたバイト列をASCII文字列に変換する
 
 [CyberChef](https://gchq.github.io/CyberChef/)の「From Hex」で16進数のバイト列を文字列に変換する。
 

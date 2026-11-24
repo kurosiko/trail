@@ -1,5 +1,5 @@
 ---
-title: "ASM-ARM64"
+title: "ARM64の呼び出し規約とスタックフレーム"
 pubDate: 2026-09-01
 description: "ARM64のレジスタ、呼び出し規約、スタックメモリのメモ"
 author: "kurosiko"
@@ -8,8 +8,6 @@ image:
   alt: "ピンク色に輝く暗い背景に浮かぶAstroのロゴ。"
 tags: ["picoCTF"]
 ---
-
-# ASM-ARM64
 
 ここではAArch64のプロシージャ呼び出し規約（AAPCS64）における、整数・ポインタ引数の基本を扱う。macOSにはAAPCS64を基にした固有規則もあるが、この範囲では共通だ。
 第1〜8引数は`x0`〜`x7`（32ビットの値なら`w0`〜`w7`）に渡り、9個目以降は通常スタック側に渡る。
@@ -69,7 +67,7 @@ Target 0: (demo) stopped.
 
 ブレークポイントを置き、`disassemble`で生成された命令を確認する。Apple SiliconはAArch64なので、命令はx86-64と異なる。
 
-Apple Silicon向けのコンパイル例。`-O0`では、引数をいったんスタックへ退避する。
+Apple Silicon向けのコンパイル例。この `-O0` の出力では引数をいったんスタックへ退避する。
 
 ```asm
 (lldb) disassemble
@@ -106,13 +104,18 @@ demo`add_all:
 
 ## メモリ確保の話
 
+掲載した逆アセンブリのフレーム配置。オフセットは `sub sp, sp, #0x30` の後の `sp` が基準。
+
 ```text
-(高)  0x100000000  [ 誰かが使っている領域 ]
- ^                 [ 誰かが使っている領域 ]
- |    0x00001030   SP -----> [ 呼び出し元の位置 ]  ← 高い
- |                           | (引き算で移動)
- |                           v
-(低)  0x00001000   SP -----> [ 新しい位置 ]        ← 低い
+高アドレス
+sp + 0x30  確保前の sp（フレームの外側）
+sp + 0x2c  a（w0 の退避先）
+sp + 0x28  b（w1 の退避先）
+   ⋮
+sp + 0x10  h（w7 の退避先）
+sp + 0x0c  sum
+sp + 0x00  確保後の sp
+低アドレス
 ```
 
 変数用の領域を確保するため、`sp`（stack pointer）を引き下げ、ここまでスタックを使うと示す。
@@ -176,5 +179,7 @@ AArch64では、32ビット整数の返り値を`w0`（64ビット値なら`x0`�
 `add sp, sp, #0x30`でスタック領域を解放し、`ret`で呼び出し元へ戻る。`w0`の値が返り値になる。
 
 ### 参考資料
+
+- [AppleプラットフォームのARM64 ABI](https://developer.apple.com/documentation/xcode/writing-arm64-code-for-apple-platforms)
 
 - [Procedure Call Standard for the Arm 64-bit Architecture（AAPCS64）](https://github.com/ARM-software/abi-aa/blob/main/aapcs64/aapcs64.rst)

@@ -1,7 +1,7 @@
 ---
-title: "basis of robotics"
+title: "ロボットの移動指令とモーター制御"
 pubDate: 2026-10-12
-description: ""
+description: "機体の移動指令が各輪の目標速度に変わり、マイコンからモーターへ届くまでを追う。"
 author: "kurosiko"
 image:
   url: "https://docs.astro.build/assets/rose.webp"
@@ -9,7 +9,6 @@ image:
 tags: ["robot"]
 ---
 
-# Basis of robotics
 この記事を書くことを決めた理由としては、
 
 1. 何も知らない状態から始めるので知識の差が少ない
@@ -25,3 +24,16 @@ tags: ["robot"]
 ## ロボットを動かすまでの信号経路
 
 たとえば4輪オムニでは、機体をどちらへ動かすかを[逆運動学](/posts/robotics/four-wheel-omni-kinematics)で各輪の目標回転速度へ変換する。次に、モーターの回転速度を測れる構成なら、目標との差を使ってドライバへの指令を調整する。マイコンが指令をPWMで送る場合は、[タイマーとGPIOの関係](/posts/robotics/stm32-pwm-timer-gpio)を追うと、数値がどのようにピンの波形に変わるか分かる。
+
+回転センサーを使って各車輪の速度を調整する場合の概念図。
+
+```mermaid
+flowchart TD
+  accTitle: ロボットの速度指令とフィードバック
+  A[機体の移動指令] --> B[逆運動学で各輪の目標速度へ変換]
+  B --> C[速度制御]
+  C -->|PWM| D[モータードライバ]
+  D --> E[モーター]
+  E --> S[回転センサー]
+  S -->|計測値| C
+```

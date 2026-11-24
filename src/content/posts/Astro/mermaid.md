@@ -1,5 +1,5 @@
 ---
-title: "AstroでMermaidをビルド時にSVGとして埋め込む"
+title: "AstroのMermaidビルド時描画"
 pubDate: 2026-11-24
 description: "MarkdownのMermaidをrehype-mermaidでインラインSVGに変換し、Cloudflare Pagesで配信する。"
 author: "kurosiko"
@@ -15,7 +15,7 @@ Trailでは、Markdownの `mermaid` コードブロックを図の原本にし�
 この図も、記事内の `mermaid` コードブロックから生成している。
 
 ```mermaid
-flowchart LR
+flowchart TD
     accTitle: Markdownから記事のSVGを生成
     accDescr: ビルド時にコードブロックを読み、Chromiumで描画したSVGを記事HTMLに埋め込む。
     A[MarkdownのMermaidソース] --> B[rehypeがコードブロックを検出]
@@ -28,13 +28,13 @@ flowchart LR
 | 閲覧時 | ブラウザで動くMermaidと、初回表示やページ遷移後の描画処理 |
 | ビルド時 | ビルド環境のChromium。閲覧時はすでに生成されたSVGを表示 |
 
-ビルド時の方式では、配信するHTMLに図の分だけデータが増える。少数の静的な図を記事に添える場合は、ページを開くたびに図を組み立てる処理を省ける。図ごとに `accTitle` と `accDescr` を指定すると、SVGにも図の題名と説明を残せる。
+ビルド時の方式では、配信するHTMLに図の分だけデータが増える。少数の静的な図を記事に添える場合は、ページを開くたびに図を組み立てる処理を省ける。図ごとに `accTitle` と `accDescr` を指定すると、SVGにも図の題名と説明を残せる。Trailは `accTitle` を図のキャプションにも使う。横長の図は図の内側でスクロールでき、ページ全体の幅は広がらない。
 
 ## Astroの設定
 
-`bun add @astrojs/markdown-remark rehype-mermaid playwright` で依存関係を追加する。Astro 7のMarkdownプロセッサーに `unified()` を指定し、Shikiの対象から `mermaid` を除外する。これで `rehype-mermaid` が元のコードブロックを処理できる。図ごとの描画エラーには `errorFallback` で元のブロックを残す。Chromiumを起動できない場合は、ビルド環境のセットアップを確認する。生成HTMLに `code.language-mermaid` が残っていれば、その図がSVGに変換されていないと分かる。
+`bun add @astrojs/markdown-remark rehype-mermaid playwright` で依存関係を追加する。Astro 7のMarkdownプロセッサーに `unified()` を指定し、Shikiの対象から `mermaid` を除外する。これで `rehype-mermaid` が元のコードブロックを処理できる。図ごとの描画エラーには `errorFallback` で元のブロックを残す。Trailの設定では、Chromiumの起動など変換全体で起きるエラーもラッパーで捕捉し、警告を出して記事のビルドを続ける。生成HTMLに `code.language-mermaid` が残っていれば、その図がSVGに変換されていないと分かる。
 
-以下はTrailの `astro.config.mjs` からMermaidに関係する部分を抜き出した設定。既存の設定がある場合は、`markdown` をその設定に追加する。
+以下は図の変換と構文エラー時のフォールバックに絞った設定例。現在のTrailでは `astro.config.mjs` の `renderMermaid` が、変換全体で起きるエラーも捕捉する。
 
 ```js
 import { defineConfig } from 'astro/config';
@@ -60,9 +60,11 @@ export default defineConfig({
 
 ローカルでは `bun run playwright install --only-shell chromium` で描画用のChromiumを用意し、`bun run build` を実行する。Cloudflare Pagesではビルドコマンドを `bun run build:pages`、出力先を `dist` に設定する。Trailの `build:pages` は `playwright install --only-shell chromium && astro build` を実行する。Pagesでは `--with-deps` を付けるとOSパッケージのインストールに `sudo` が必要になり、ビルドが止まった。
 
+Markdown変換を変更した後、古い変換結果が残る場合は `bun run build:pages --force` でキャッシュを使わずにビルドする。
+
 ## 検証結果
 
-macOS 27.2.1、Node.js 24.14.1、Bun 1.3.13、Astro 7.2.0、`rehype-mermaid` 3.0.0、Playwright 1.65.1で検証した。ローカルのビルドと型チェックが通り、JavaScriptを無効にしたChromiumでも図が表示された。今回の改稿でも、配信対象の図16点を、JavaScriptを無効にしたChromiumの幅390 pxと1280 pxで表示できることを確認した。Cloudflare Pages上のビルドは未確認。
+macOS 27.2.1、Node.js 24.14.1、Bun 1.3.13、Astro 7.2.0、`rehype-mermaid` 3.0.0、Playwright 1.65.1で検証した。ローカルのビルドと型チェックが通り、JavaScriptを無効にしたChromiumでも図が表示された。前回の改稿では、配信対象の図をJavaScript無効のChromiumで、幅390 pxと1280 pxの両方で確認した。Cloudflare Pages上のビルドは未確認。
 
 ## 参考資料
 

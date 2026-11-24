@@ -1,5 +1,5 @@
 ---
-title: "Insp3ct0r"
+title: "HTML・CSS・JavaScriptのコメント"
 pubDate: 2026-08-23
 description: ""
 author: "kurosiko"
@@ -27,6 +27,6 @@ tags: ["picoCTF"]
 /* Javascript sure is neat. Anyways part 3/3 of the flag: _lucky?302945a7} */
 ```
 
-3つを合わせるとflagは以下。
+HTML・CSS・JavaScriptのコメントも配信されたファイルに含まれる。順番に3つを合わせると、次のflagになる。
 
 **Flag:** `picoCTF{tru3_d3t3ct1ve_0r_ju5t_lucky?302945a7}`

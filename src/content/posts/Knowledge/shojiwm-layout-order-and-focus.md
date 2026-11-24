@@ -1,5 +1,5 @@
 ---
-title: "ShojiWMで配置順・フォーカス・Z-orderを分ける"
+title: "ウィンドウ配置と入力フォーカスの設計"
 pubDate: 2026-11-24
 description: "モードを切り替えても、ウィンドウの順序と入力の操作規則を保つ。"
 author: "kurosiko"
@@ -18,16 +18,15 @@ GRID・BSP・SCROLLで別々のウィンドウ順を持つと、モード切替�
 
 重なり順を独立させると、背面にフォーカスを移す操作が可能になる。手前のウィンドウで隠れている場合は入力先を見失いやすいため、フォーカス表示や明示的に前面へ出す操作も考慮する。
 
-## 概念図
-
 ```mermaid
-flowchart LR
-  O[Shared Order] --> G[GRID]
-  O --> B[BSP]
-  O --> S[SCROLL]
-  K[フォーカス移動] --> F[入力先]
-  M[ポインター移動] --> P[カーソル位置]
-  Z[明示的な重なり操作] --> L[Z-order]
+stateDiagram-v2
+  accTitle: 配置モードを変えても共通順序とフォーカスを保持
+  state "GRID・入力先B" as Grid
+  state "SCROLL・入力先B" as Scroll
+  state "SCROLL・入力先を再選択" as Closed
+  Grid --> Scroll: 配置モード切替
+  Scroll --> Grid: 配置モード切替
+  Scroll --> Closed: Bを閉じる
 ```
 
 ## 環境と確認状況

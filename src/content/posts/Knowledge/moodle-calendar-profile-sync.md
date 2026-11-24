@@ -1,5 +1,5 @@
 ---
-title: "Moodleの締切をプロフィール単位でGoogle Calendarへ同期する"
+title: "Moodleの締切とGoogle Calendarの同期"
 pubDate: 2026-11-24
 description: "同じ課題IDを持つ別プロフィールを区別し、イベントを重複させない。"
 author: "kurosiko"
@@ -18,16 +18,18 @@ tags: ["moodle","mcp","google-calendar"]
 
 取得失敗は「締切が取り消された」という情報を含まない。対象プロフィールの取得が失敗した回は、そのプロフィールのイベントを削除する根拠には使わない。時刻は取得元の時刻が表す瞬間を保ったまま、`Asia/Tokyo` で表示する。
 
-## 概念図
-
 ```mermaid
 flowchart TD
-  A[list_profiles] --> B[プロフィール別に活動取得]
-  B --> C{締切が確定済み?}
+  accTitle: プロフィール別に同期し取得失敗時は保留
+  A[list_profiles] --> B{活動の取得に成功したか}
+  B -->|はい| C{締切が確定済み?}
+  B -->|いいえ| G[同期を保留し既存イベントを保持]
   C -->|Yes| D[既存イベントと照合]
   D --> E[追加または更新]
   C -->|No| F[同期対象外]
 ```
+
+同期が並行すると、重複作成だけでなく古い締切で新しい更新を上書きすることもある。同期をカレンダー単位で直列化するか、更新時に既存イベントのETagを `If-Match` で渡し、競合時は情報を取り直す。取得成功後に締切が消えた場合の削除は、別の同期規則として扱う。
 
 ## 環境と確認状況
 
@@ -36,3 +38,5 @@ Moodle、Modile MCP、Google Calendar、Asia/Tokyo。Moodle・各APIの版は未
 重複防止と締切更新は決定済みの仕様。プロフィールごとの取得、照合、再同期の成功は未確認。
 
 - [Google Calendar APIの拡張プロパティ](https://developers.google.com/workspace/calendar/api/guides/extended-properties)
+
+- [Google Calendar APIのバージョン付きリソース](https://developers.google.com/workspace/calendar/api/guides/version-resources)

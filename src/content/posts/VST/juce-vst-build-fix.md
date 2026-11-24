@@ -1,12 +1,10 @@
 ---
-title: "JUCEで作ったVSTがビルドできないときの直し方"
+title: "JUCEのVSTビルドとモジュール設定"
 pubDate: 2026-08-11
 description: "ProjucerのJUCEモジュール不足で発生したC2653・LNK1181・C1189を解決した記録"
 author: "kurosiko"
 tags: ["VST", "JUCE", "Projucer", "Visual Studio", "トラブルシューティング"]
 ---
-
-# JUCEで作ったVSTがビルドできないときの直し方
 
 JUCEのProjucerで初めてVSTを作っていたところ、Visual Studioのビルドで大量のエラーが発生した。最終的には、Projucerのモジュール設定を修正してプロジェクトを再生成することで解決できた。
 
@@ -22,6 +20,16 @@ LNK1181: cannot open input file 'MyFirstVST.lib'
 `juce`名前空間が見つからないため、`AudioProcessor`や`AudioProcessorEditor`なども連鎖的に未定義になっていた。
 
 `MyFirstVST.lib`が見つからないエラーは、ライブラリを作る前段階のShared Codeプロジェクトが失敗していたことによる二次的なエラーだった。
+
+この事例では、リンク時に表示されたエラーを、先に失敗したコンパイルまで遡ると原因を絞れた。
+
+```mermaid
+flowchart TD
+  accTitle: JUCEのビルドエラーが連鎖する流れ
+  A[ProjucerでJUCEモジュールが不足] --> B[Shared Codeのコンパイルが失敗]
+  B --> C[ライブラリが生成されない]
+  C --> D[VSTのリンクが失敗]
+```
 
 ## 原因
 
@@ -146,4 +154,4 @@ Rebuild completed
 - `juce`名前空間が丸ごと見つからない場合は、ソースコードより先に`JuceHeader.h`とProjucerのModulesを確認する。
 - `LNK1181`で`.lib`が見つからない場合は、そのライブラリを生成する前のプロジェクトのエラーを確認する。
 - Audio Pluginでは`juce_audio_plugin_client`だけでなく、`juce_audio_utils`と`juce_audio_devices`も必要になることがある。
-- Projucerで設定を変更した後は、必ず`Save and Open in IDE`、`Reload All`、`Clean`、`Rebuild`まで行う。
+- Projucerで設定した後は `Save and Open in IDE` で再生成する。IDEから外部変更の通知が出たら読み込み直す。古い生成物の影響を除きたいときは、今回のように `Clean` してから `Rebuild` する。

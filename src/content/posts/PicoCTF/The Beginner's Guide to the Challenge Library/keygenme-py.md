@@ -1,5 +1,5 @@
 ---
-title: "keygenme-py"
+title: "Pythonのハッシュとライセンスキー検証"
 pubDate: 2026-08-26
 description: "Pythonプログラムを解析してライセンスキーを求める問題の記録"
 author: "kurosiko"
@@ -8,8 +8,6 @@ image:
   alt: "ピンク色に輝く暗い背景に浮かぶAstroのロゴ。"
 tags: ["picoCTF"]
 ---
-
-# keygenme-py
 
 **もはや問題文すらない**
 
@@ -34,12 +32,12 @@ Arcane Calculator
 LOLやArcaneのパロディだが、ここでは扱わない。
 
 
-目標は`key_full_template_trail`の取得だ。
-`key_part_dynamic1_trail`を求めればよい。
+目標は`key_full_template_trial`の取得だ。
+`key_part_dynamic1_trial`を求めればよい。
 
-`check_key`は入力と`key_full_template_trail`の文字数が異なると受け付けないため、`key_part_dynamic1_trail`は8文字になる。
+`check_key`は入力と`key_full_template_trial`の文字数が異なると受け付けないため、`key_part_dynamic1_trial`は8文字になる。
 
-`username_trail`をSHA-256でハッシュ化し、16進数の各インデックスを確認する。
+`username_trial`をSHA-256でハッシュ化し、16進数の各インデックスを確認する。掲載コードのスライスはハッシュの一部を観察するための出力。末尾で組み立てるキーは、演習で求めた8文字を代入した記録。
 
 ```python
 import hashlib

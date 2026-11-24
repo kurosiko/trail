@@ -2,10 +2,8 @@ export default function AboutPage() {
 	return (
 		<article>
 			<p class="eyebrow">About</p>
-			<h1>Trailについて</h1>
-			<p>
-				このサイトでは、学んだことや作ったもの、その途中で気づいたことを記録します。
-			</p>
+			<h1>The trail project</h1>
+            <p>基本的に自分で記事は書いていて、AIに校正とスタイルの統一をさせています</p>
 		</article>
 	);
 }

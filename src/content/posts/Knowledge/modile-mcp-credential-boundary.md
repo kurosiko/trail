@@ -1,5 +1,5 @@
 ---
-title: "Modile MCPで認証情報をAIから隔離する"
+title: "Modile MCPの認証情報の隔離"
 pubDate: 2026-11-24
 description: "Moodleの操作要求と、端末側の認証・再認証を切り分ける。"
 author: "kurosiko"
@@ -16,18 +16,24 @@ Moodleのトークンが失効しても、AIには操作の目的と対象だけ
 
 例えば資格情報が期限切れなら、ツールは再認証が必要だと分かる状態だけを返し、利用者が端末の認証画面で続きの操作をする。APIのレスポンスをそのままツール結果へ渡すと、上流が返した詳細が会話やログに残りうる。返す情報は操作結果に必要な項目に絞る。資格情報を隠した後も、サーバー側で呼び出し元と対象プロフィールの組を認可する必要がある。
 
-## 概念図
-
 ```mermaid
-flowchart LR
-  AI[AI] -->|許可された操作| MCP[Modile MCP]
-  MCP --> Auth[認証管理]
+flowchart TD
+  accTitle: Modile MCPの信頼境界と資格情報の経路
+  AI[AIとMCPホスト] -->|操作・対象プロフィール| MCP
+  subgraph Local[利用者の端末側]
+    MCP[Modile MCP] --> Auth[認証管理]
+    Vault[(端末の資格情報ストア)] -->|資格情報| Auth
+  end
   Human[利用者] -->|再認証| Auth
-  Auth --> Moodle[Moodle API]
+  Auth -->|トークン付き要求| Moodle[Moodle API]
+  Moodle -->|応答| MCP
+  MCP -->|必要な結果だけ| AI
 ```
+
+図の境界はAIと端末側の認証管理の間。MCP引数には資格情報を置かず、端末側だけがトークンを参照する。再認証が必要な場合、認証画面の完了を待って同じ操作を安全に再試行できるよう、操作IDと冪等性の扱いを別途定義する。
 
 ## 環境と確認状況
 
 Moodle、Modile MCP。対象OS、Moodle APIとMCP実装の版は未確認。
 
-認証情報を隔離する方針を確認。端末での保管・再認証の実装と動作は未確認。
+認証情報を隔離する方針を確認。現在のModileの `connector.rs` では `list_profiles` がプロフィール名と既定値を返し、セッション確認ツールがホスト保有の資格情報でセッション復旧を試みる。資格情報ストアの実装もソースにある。ここで描いた再認証UIの接続、OS別の保管動作、結果不明時の再試行は未確認。

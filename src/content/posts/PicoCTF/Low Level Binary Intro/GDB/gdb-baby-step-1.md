@@ -1,5 +1,5 @@
 ---
-title: "GDB-baby-step-1"
+title: "GDB演習とx86-64のeaxレジスタ"
 pubDate: 2026-09-20
 description: ""
 author: "kurosiko"
@@ -9,7 +9,7 @@ image:
 tags: ["picoCTF"]
 ---
 
-# GDB baby step 1
+> **Q.** `eax` レジスタの値は何か
 
-> **Q.** exaレジスタは何?
+`eax` は x86-64 の `rax` の下位32ビット。ここには対象バイナリの観察記録が残っていないため、具体的な値は未確認。
 

@@ -1,5 +1,5 @@
 ---
-title: "Rust WorkerからD1をBindingで扱う"
+title: "Rust WorkersによるD1操作"
 pubDate: 2026-11-24
 description: "Goとの比較でworker-rsを選んだ理由と、D1接続の境界を整理する。"
 author: "kurosiko"
@@ -20,14 +20,20 @@ Workerの設定で、コードが使う名前を対象のD1データベースに
 
 SQLの値にはプレースホルダーを使う。たとえば `WHERE id = ?` として値をバインドすれば、外部から受け取ったIDはSQL構文と分けて渡せる。Bindingの名前解決と、SQLに値を束縛する処理は異なる段階にある。
 
-## 概念図
-
 ```mermaid
-flowchart LR
-  R[HTTPリクエスト] --> W[Rust Worker]
-  W --> B[D1 Binding]
-  B --> DB[(D1)]
+sequenceDiagram
+  accTitle: WorkerがD1の名前を解決し値をバインドする
+  participant C as クライアント
+  participant W as Rust Worker
+  participant D as D1
+  C->>W: HTTP要求
+  Note over W: env.d1 で DB を解決
+  W->>D: SQLとバインドした値でクエリ
+  D-->>W: 行またはエラー
+  W-->>C: HTTP応答
 ```
+
+Bindingが未設定なら名前解決で失敗し、テーブルが未作成ならSQL実行で失敗する。ローカルと本番ではBinding名が同じでもデータベースが別になるため、マイグレーションの対象も確認する。
 
 ## 環境と確認状況
 

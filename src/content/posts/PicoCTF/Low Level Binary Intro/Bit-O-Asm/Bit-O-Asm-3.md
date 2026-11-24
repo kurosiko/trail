@@ -1,5 +1,5 @@
 ---
-title: "Bit-O-Asm-3"
+title: "x86-64の整数演算とレジスタ"
 pubDate: 2026-09-19
 description: "imulとaddの計算結果からeaxの値を求める"
 author: "kurosiko"
@@ -8,8 +8,6 @@ image:
   alt: "ピンク色に輝く暗い背景に浮かぶAstroのロゴ。"
 tags: ["picoCTF"]
 ---
-
-# Bit-O-Asm-3
 
 > **Q.** `eax` レジスタの値は？
 

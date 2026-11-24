@@ -1,5 +1,5 @@
 ---
-title: "Bit-O-Asm-1"
+title: "x86-64の即値ロードと整数表現"
 pubDate: 2026-09-01
 description: "eaxに代入された即値を10進数に変換する"
 author: "kurosiko"
@@ -8,8 +8,6 @@ image:
   alt: "ピンク色に輝く暗い背景に浮かぶAstroのロゴ。"
 tags: ["picoCTF"]
 ---
-
-# Bit-O-Asm-1
 
 > **Q.** `eax` レジスタの値は？
 

@@ -1,5 +1,5 @@
 ---
-title: "Picker1"
+title: "Pythonのevalと動的な関数呼び出し"
 pubDate: 2026-09-01
 description: "evalで呼び出せる関数を調べ、出力された16進数を復号する"
 author: "kurosiko"
@@ -8,8 +8,6 @@ image:
   alt: "ピンク色に輝く暗い背景に浮かぶAstroのロゴ。"
 tags: ["picoCTF"]
 ---
-
-# Picker1
 
 > **Q.** ランダムな数字を生成するサービス。他にできることは？
 
@@ -67,3 +65,7 @@ Try entering "getRandomNumber" without the double quotes...
 ```text
 picoCTF{4_d14m0nd_1n_7h3_r0ugh_ce4b5d5b}
 ```
+
+## 実装上の注意
+
+外部から受け取った文字列を `eval` すると、公開するつもりのない処理まで実行されうる。名前で機能を選ばせる場合は、利用者に許可した操作名と関数の対応をコードに定義し、辞書に無い名前を拒否する。

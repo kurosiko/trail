@@ -1,5 +1,5 @@
 ---
-title: "General Skills in CTF's 2"
+title: "picoCTFのファイル検索とSSH接続"
 pubDate: 2026-08-21
 description: ""
 author: "kurosiko"
@@ -14,13 +14,13 @@ tags: ["picoCTF"]
 
 > **Q.** ncを使ってお話ししてくれるプログラムに接続しよう、英語じゃないけどね
 
-ASCIIらしき文字列が返ってきた。解釈すると以下のとおり。
+空白区切りの10進数が返る。各数をASCIIのコード値として読み、順番に文字へ変換する。
 
 **Flag:** `picoCTF{g00d_k1tty!_n1c3_k1tty!_a94e7}`
 
 ### Tab, Tab, Attack
 
-> **Q.** TAB保管を利用してflagを手に入れて
+> **Q.** Tab補完を利用してflagを手に入れて
 
 zipをダウンロードしてunzip、tabで探索。
 実行ファイルとCのプログラムが出てきた。
@@ -93,7 +93,7 @@ $ unzip files.zip
 $ find ./files -name "uber-secret.txt" -exec cat {} +
 ```
 
-最後の`+`はcatを一度に実行する指定。イメージは以下のとおり。
+最後の `+` は見つかった複数のパスを、引数長の上限に収まる分ずつ `cat` に渡す指定。イメージは以下のとおり。
 
 ```console
 $ cat ./a.txt ./b.txt

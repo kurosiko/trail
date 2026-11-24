@@ -1,5 +1,5 @@
 ---
-title: "Mod 26"
+title: "ROT13の文字変換と二重適用"
 pubDate: 2026-08-24
 description: ""
 author: "kurosiko"
@@ -13,6 +13,12 @@ tags: ["picoCTF"]
 ROT13を調べる。
 「**Rot**ate by **13** places」の略で、シーザー暗号の一種。アルファベットを13文字ずらす。
 
-[ROT13](https://ja.wikipedia.org/wiki/ROT13)のサイトに入力する。
+アルファベット26文字の半分だけずらすので、同じ操作を2回適用すると元に戻る。
+
+```text
+A ──13文字ずらす──> N ──13文字ずらす──> A
+```
+
+英字の大文字・小文字はそれぞれのアルファベット内で置き換える。数字や記号はそのまま残る。
 
 **Flag:** `picoCTF{next_time_I'll_try_2_rounds_of_rot13_45559abd}`

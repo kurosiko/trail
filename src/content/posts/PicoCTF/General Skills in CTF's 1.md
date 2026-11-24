@@ -1,5 +1,5 @@
 ---
-title: "General Skills in CTF's 1"
+title: "picoCTFの進数変換と端末操作"
 pubDate: 2026-08-21
 description: ""
 author: "kurosiko"
@@ -66,7 +66,7 @@ D * 1  = 13
 > **Q.** スクリプトを走らせて10進数から2進数にしてflagを取得して
 
 そのまま実行する。
-72をバイナリに変換し、`1001010`を返す。
+数値は実行ごとに選ばれる。記録の入力が72なら、`64 + 8` なので2進表記は `1001000`。
 
 **Flag:** `picoCTF{4ll_y0ur_b4535_9c3b7d4d}`
 
@@ -75,6 +75,6 @@ D * 1  = 13
 > **Q.** ncを使って特定のポートにアクセスしてflagを取得して
 
 インスタンスを起動し、nc tutorialで確認する。
-`nc -arg hostname port`で接続する。
+`nc hostname port` の `hostname` と `port` を演習で指定された値に替えて接続する。
 
 **Flag:** `picoCTF{nEtCat_Mast3ry_0d33dA2C}`

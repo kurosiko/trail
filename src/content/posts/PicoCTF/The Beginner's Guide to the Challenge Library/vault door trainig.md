@@ -1,5 +1,5 @@
 ---
-title: "vault-door-trainig"
+title: "Javaの文字列切り出しとパスワード検証"
 pubDate: 2026-08-26
 description: "Javaのソースコードからパスワードを求める問題の記録"
 author: "kurosiko"
@@ -9,24 +9,22 @@ image:
 tags: ["picoCTF"]
 ---
 
-# vault-door-trainig
-
 > **Q.** blueprintsを探して、ただしパスワードが必要なのでソースコードから割り出してね
 
 Javaファイルを、`JDK`でコンパイルして実行する。
 
 ```console
-$ javac VaultDoorTrainig.java
-$ java VaultDoorTrainig
+$ javac VaultDoorTraining.java
+$ java VaultDoorTraining
 ```
 
 下部にパスワードがそのまま記載されている。
 
 ```java
-String input = userInput.substring(...)
+String input = userInput.substring("picoCTF{".length(), userInput.length() - 1);
 ```
 
-`userInput`から`picoCTF{...}`の中身だけを検証している。
+演習コードは `substring` で接頭辞相当の長さと最後の1文字を除き、切り出した部分を比較する。この切り出し処理自体は接頭辞や閉じ括弧を検査しない。入力が短すぎる場合は、比較する前に `substring` が例外を投げる。
 パスワードを`picoCTF{}`で囲めばflagになる。
 
 

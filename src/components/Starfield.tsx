@@ -66,7 +66,7 @@ export default function Starfield() {
     return (
         <canvas
             ref={canvasRef}
-            className="pointer-events-none absolute inset-0 h-full w-full transition-opacity duration-1000"
+            className="pointer-events-none fixed inset-0 h-full w-full transition-opacity duration-1000"
             style={{
                 opacity: isReady ? 1 : 0
             }}

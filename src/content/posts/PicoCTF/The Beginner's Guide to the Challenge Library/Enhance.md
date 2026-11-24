@@ -1,5 +1,5 @@
 ---
-title: "Enhance"
+title: "SVG画像に含まれる文字列の抽出"
 pubDate: 2026-08-26
 description: "SVGファイルからflagを見つける問題の記録"
 author: "kurosiko"
@@ -8,8 +8,6 @@ image:
   alt: "ピンク色に輝く暗い背景に浮かぶAstroのロゴ。"
 tags: ["picoCTF"]
 ---
-
-# Enhance
 
 > **Q.** SVGファイルの中からflagを探せ
 
@@ -23,6 +21,6 @@ c 3 d _ a a b 7 2 9 d d }
 ```
 が得られる。
 
-vimの`:s/ //g`で行内の空白を削除する。
+Vimでは対象の2行を選んで `:` を入力し、表示された範囲に `s/ //g` を適用して空白を削除する。次に改行を除いて2行を連結する。
 
 **Flag:** `picoCTF{3nh4nc3d_aab729dd}`

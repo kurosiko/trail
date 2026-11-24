@@ -1,5 +1,5 @@
 ---
-title: "Python in CTF's"
+title: "Pythonのインデントと比較式の構文"
 pubDate: 2026-08-25
 description: "Pythonの構文エラーを修正してflagを取得する問題の記録"
 author: "kurosiko"
@@ -9,20 +9,18 @@ image:
 tags: ["picoCTF"]
 ---
 
-# Python in CTF's
-
 > **Q.** Pythonの構文エラーを直して、flagを取得しよう
 
 ## Problem set1
 
 ### fixme1.py
 
-インデントがずれているため、修正して実行する。
+ブロック内のインデントを揃えて実行する。Pythonではインデントが文の所属するブロックを決める。
 
 **Flag:** `picoCTF{1nd3nt1ty_cr1515_09ee727a}`
 
 ### fixme2.py
 
-ifのイコールが足りないので、修正して実行する。
+条件式で等しいかを比較するため、`=` を `==` に直す。`=` は代入文に使う。
 
 **Flag:** `picoCTF{3qu4l1ty_n0t_4551gnm3nt_4863e11b}`

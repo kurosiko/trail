@@ -1,5 +1,5 @@
 ---
-title: "STM32ピンプランナーの割当制約をモデルに集める"
+title: "STM32のピン割当と制約検証"
 pubDate: 2026-11-24
 description: "Reactの画面操作とJSON入力で同じ割当検証を使う。"
 author: "kurosiko"
@@ -16,14 +16,15 @@ tags: ["robot","stm32","react"]
 
 最初に `JSON.parse` と型の検査で、ピン名と機能名を持つ入力として読めるかを確かめる。その後、同じピンを2回指定していないかなど、割当全体の制約を調べる。例えば `PA8` が2件現れるJSONは、各項目の形式が正しくても割当としては無効。設計例として、読み込んだ候補を別の状態に組み立て、全件を検査できた時点で現在の状態と入れ替えると、途中の項目だけが反映されるのを防げる。
 
-## 概念図
-
 ```mermaid
-flowchart LR
-  UI[ピン操作UI] --> Model[割当モデル]
-  JSON[JSON入力] --> Model
-  Model --> Check[割当制約を検証]
-  Check --> State[有効な状態]
+flowchart TD
+  accTitle: ピン割当を検査してから新しい状態を反映
+  UI[ピン操作UI] --> Check{割当モデルの制約を満たすか}
+  JSON[JSON入力] --> Parse{形式が正しいか}
+  Parse -->|はい| Check
+  Parse -->|いいえ| Reject[理由を表示して現状を保持]
+  Check -->|はい| State[新しい割当を反映]
+  Check -->|いいえ| Reject
 ```
 
 ## 環境と確認状況

@@ -1,5 +1,5 @@
 ---
-title: "Bit-O-Asm-2"
+title: "x86-64のスタックメモリの読み出し"
 pubDate: 2026-09-19
 description: "スタック上の値をeaxに読み込み、10進数に変換する"
 author: "kurosiko"
@@ -8,8 +8,6 @@ image:
   alt: "ピンク色に輝く暗い背景に浮かぶAstroのロゴ。"
 tags: ["picoCTF"]
 ---
-
-# Bit-O-Asm-2
 
 > **Q.** `eax` レジスタの値は？
 
@@ -29,4 +27,10 @@ tags: ["picoCTF"]
 
 ```text
 picoCTF{654874}
+```
+
+観察した命令のデータの流れ。アドレスの基準は `rbp`。
+
+```text
+即値 0x9fe1a  ──書き込む──>  [rbp-0x4]  ──読み込む──>  eax
 ```
