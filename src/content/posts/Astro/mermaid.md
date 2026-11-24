@@ -58,7 +58,7 @@ export default defineConfig({
 
 ## Cloudflare Pagesのビルド設定
 
-ローカルでは `bun run playwright install --only-shell chromium` で描画用のChromiumを用意し、`bun run build` を実行する。Cloudflare Pagesではビルドコマンドを `bun run build:pages`、出力先を `dist` に設定する。Trailの `build:pages` は `playwright install --with-deps --only-shell chromium && astro build` を実行する。
+ローカルでは `bun run playwright install --only-shell chromium` で描画用のChromiumを用意し、`bun run build` を実行する。Cloudflare Pagesではビルドコマンドを `bun run build:pages`、出力先を `dist` に設定する。Trailの `build:pages` は `playwright install --only-shell chromium && astro build` を実行する。Pagesでは `--with-deps` を付けるとOSパッケージのインストールに `sudo` が必要になり、ビルドが止まった。
 
 ## 検証結果
 

@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "build:pages": "playwright install --with-deps --only-shell chromium && astro build",
+    "build:pages": "playwright install --only-shell chromium && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
