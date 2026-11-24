@@ -14,6 +14,22 @@ const mermaidOptions = {
   errorFallback: (element) => element
 };
 
+/** @type {import('unified').Plugin<[], import('hast').Root>} */
+function renderMermaid() {
+  const render = rehypeMermaid.call(this, mermaidOptions);
+
+  return async (tree, file) => {
+    try {
+      await render?.(tree, file, (error) => {
+        if (error) throw error;
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message.split('\n')[0] : String(error);
+      console.warn(`[mermaid] ${file.path || 'Markdown'}: ${message}. Keeping the Mermaid source.`);
+    }
+  };
+}
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
@@ -23,7 +39,7 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: { type: 'shiki', excludeLangs: ['mermaid'] },
     processor: unified({
-      rehypePlugins: [[rehypeMermaid, mermaidOptions]]
+      rehypePlugins: [renderMermaid]
     })
   },
 
